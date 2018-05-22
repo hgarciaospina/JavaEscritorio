@@ -438,6 +438,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         //Limpiar campos
         txtIDUsuario.setText("");
         txtNombres.setText("");
+        txtApellidos.setText("");
         txtClave.setText("");
         txtConfirmacion.setText("");
         cmbPerfil.setSelectedIndex(0);
@@ -463,6 +464,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         txtClave.setEditable(false);
         txtConfirmacion.setEditable(false);
         cmbPerfil.setEditable(false);
+        
         mostrarRegistro();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
