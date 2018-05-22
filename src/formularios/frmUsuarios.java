@@ -23,6 +23,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         this.misDatos = misDatos;
     }
     public frmUsuarios() {
+       //initComponentes pone a false los setEditable --> setEditable(false) 
         initComponents();
     }
 
@@ -312,15 +313,15 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         btnBuscar.setEnabled(false);
         btnGuardar.setEnabled(true);
         btnCancelar.setEnabled(true);
-        
+       
         //Habilita campos
-        txtIDUsuario.setEnabled(true);
-        txtNombres.setEnabled(true);
-        txtApellidos.setEnabled(true);
-        txtClave.setEnabled(true);
-        txtConfirmacion.setEnabled(true);
-        cmbPerfil.setEnabled(true);
-        
+        txtIDUsuario.setEditable(true);
+        txtNombres.setEditable(true);
+        txtApellidos.setEditable(true);
+        txtClave.setEditable(true);
+        txtConfirmacion.setEditable(true);
+        cmbPerfil.setEditable(true);
+      
         //Limpiar campos
         txtIDUsuario.setText("");
         txtNombres.setText("");
@@ -427,17 +428,17 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         btnCancelar.setEnabled(false);
         
         //Deshabilita campos
-        txtIDUsuario.setEnabled(false);
-        txtNombres.setEnabled(false);
-        txtApellidos.setEnabled(false);
-        txtClave.setEnabled(false);
-        txtConfirmacion.setEnabled(false);
-        cmbPerfil.setEnabled(false);
+        txtIDUsuario.setEditable(false);
+        txtNombres.setEditable(false);
+        txtApellidos.setEditable(false);
+        txtClave.setEditable(false);
+        txtConfirmacion.setEditable(false);
+        cmbPerfil.setEditable(false);
         
         //Limpiar campos
         txtIDUsuario.setText("");
         txtNombres.setText("");
-        lblClave.setText("");
+        txtClave.setText("");
         txtConfirmacion.setText("");
         cmbPerfil.setSelectedIndex(0);
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -456,12 +457,13 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         btnCancelar.setEnabled(false);
         
         //Deshabilita campos
-        txtIDUsuario.setEnabled(false);
-        txtNombres.setEnabled(false);
-        txtApellidos.setEnabled(false);
-        txtClave.setEnabled(false);
-        txtConfirmacion.setEnabled(false);
-        cmbPerfil.setEnabled(false);
+        txtIDUsuario.setEditable(false);
+        txtNombres.setEditable(false);
+        txtApellidos.setEditable(false);
+        txtClave.setEditable(false);
+        txtConfirmacion.setEditable(false);
+        cmbPerfil.setEditable(false);
+        mostrarRegistro();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -478,11 +480,11 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         btnCancelar.setEnabled(true);
         
         //Habilita campos
-        txtNombres.setEnabled(true);
-        txtApellidos.setEnabled(true);
-        txtClave.setEnabled(true);
-        txtConfirmacion.setEnabled(true);
-        cmbPerfil.setEnabled(true);
+        txtNombres.setEditable(true);
+        txtApellidos.setEditable(true);
+        txtClave.setEditable(true);
+        txtConfirmacion.setEditable(true);
+        cmbPerfil.setEditable(true);
         
         //Desactivamos el flag de registro nuevo
         nuevo = false;
