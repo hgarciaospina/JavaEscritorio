@@ -6,8 +6,15 @@ public class Datos {
     private int conUsu = 0;
     
     public Datos(){
-        Usuario miUsuario = new 
-                Usuario("henry", "Henry", "García Ospina", "123", 1);
+        Usuario miUsuario;
+        
+        miUsuario = new Usuario("henry", "Henry", "García Ospina", "123", 1);
+        misUsuarios[conUsu] = miUsuario;
+        conUsu++;
+        miUsuario = new Usuario("pepe", "Pedro", "Infante", "123", 2);
+        misUsuarios[conUsu] = miUsuario;
+        conUsu++;
+        miUsuario = new Usuario("maria", "María", "Conchita", "123", 1);
         misUsuarios[conUsu] = miUsuario;
         conUsu++;
     }
@@ -56,7 +63,14 @@ public class Datos {
         misUsuarios[pos].setApellidos(miUsuario.getApellidos());
         misUsuarios[pos].setClave(miUsuario.getClave());
         misUsuarios[pos].setPerfil(miUsuario.getPerfil());
-        
-        return "Usuario agregado correctamente";
+        return "Usuario modificado correctamente";
+    }
+    
+     public String borrarUsuario(int pos){
+         for (int i = pos; i < conUsu - 1; i++) {
+             misUsuarios[i] = misUsuarios[i + 1];
+         }
+         conUsu--;
+        return "Usuario eliminado correctamente";
     }
 }

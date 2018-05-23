@@ -8,6 +8,7 @@ package formularios;
 import clases.Datos;
 import clases.Usuario;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +19,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
     private Datos misDatos;
     private int usuAct = 0;
     private boolean nuevo = false;
+    private DefaultTableModel miTabla;
     
     public void setDatos(Datos misDatos){
         this.misDatos = misDatos;
@@ -55,6 +57,8 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         lblApeliidos = new javax.swing.JLabel();
         lblConfirmacion = new javax.swing.JLabel();
         lblCamposObligatorios = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblTabla = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
@@ -140,6 +144,11 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/buscar.png"))); // NOI18N
         btnBuscar.setToolTipText("Buscar registro");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/nuevo.png"))); // NOI18N
         btnNuevo.setToolTipText("Nuevo registro");
@@ -151,6 +160,11 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
 
         btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eliminar.png"))); // NOI18N
         btnBorrar.setToolTipText("Eliminar registro");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/guardar.png"))); // NOI18N
         btnGuardar.setToolTipText("Grabar registro");
@@ -183,39 +197,23 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         lblCamposObligatorios.setText("* Campos obligatorios");
         lblCamposObligatorios.setToolTipText("");
 
+        tblTabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblTabla);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblCamposObligatorios)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblNombres)
-                            .addComponent(lblUsuario)
-                            .addComponent(lblApeliidos)
-                            .addComponent(lblClave))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtIDUsuario)
-                                .addGap(41, 41, 41)
-                                .addComponent(lblPerfil)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtNombres)
-                            .addComponent(txtApellidos)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                                .addComponent(lblConfirmacion)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(14, 14, 14))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnPrimero, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,6 +236,39 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(88, 88, 88))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(lblCamposObligatorios)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblNombres)
+                                    .addComponent(lblUsuario)
+                                    .addComponent(lblApeliidos)
+                                    .addComponent(lblClave))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtIDUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblPerfil)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cmbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtNombres)
+                                    .addComponent(txtApellidos)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                                        .addComponent(lblConfirmacion)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1))
+                        .addGap(14, 14, 14))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,7 +307,9 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         lblUsuario.getAccessibleContext().setAccessibleName("");
@@ -411,8 +444,13 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
                 clave,
                 cmbPerfil.getSelectedIndex());
         
-        
-        String msg = misDatos.agregarUsuario(miUsuario);
+        String msg;
+        if (nuevo) {
+            msg = misDatos.agregarUsuario(miUsuario);  
+        } else{
+             msg = misDatos.modificarUsuario(miUsuario, pos);  
+        }
+  
         JOptionPane.showMessageDialog(rootPane, msg);
         
         //Deshabilita botones
@@ -435,13 +473,16 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         txtConfirmacion.setEditable(false);
         cmbPerfil.setEditable(false);
         
-        //Limpiar campos
+        //Actualizar cambios en la tabla
+        llenarTabla();
+        
+       /* //Limpiar campos
         txtIDUsuario.setText("");
         txtNombres.setText("");
         txtApellidos.setText("");
         txtClave.setText("");
         txtConfirmacion.setText("");
-        cmbPerfil.setSelectedIndex(0);
+        cmbPerfil.setSelectedIndex(0); */
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -497,6 +538,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         mostrarRegistro();
+        llenarTabla();
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void btnPrimeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeroActionPerformed
@@ -525,6 +567,35 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         mostrarRegistro();
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        int rta = JOptionPane.showConfirmDialog(rootPane, "Está seguro de borrar el registro?");
+        if (rta != 0) {
+            return;
+        }
+        String msg;
+        msg = misDatos.borrarUsuario(usuAct);
+        JOptionPane.showMessageDialog(rootPane, msg);
+        usuAct = 0;
+        mostrarRegistro();
+        
+        //Actualiza cambios en la tabla
+        llenarTabla();
+    }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String usuario  = JOptionPane.showInputDialog("Ingrese código de usuario");
+        if (usuario.equals("")) {
+            return;
+        }
+        int pos = misDatos.posicionUsuario(usuario);
+        if (pos == -1){
+            JOptionPane.showMessageDialog(rootPane, "Usuario no existe");
+            return;
+        }
+        usuAct = pos;
+        mostrarRegistro();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
     private void mostrarRegistro(){
         txtIDUsuario.setText(misDatos.getUsuarios()[usuAct].getIdUsuario());
         txtNombres.setText(misDatos.getUsuarios()[usuAct].getNombres());
@@ -532,6 +603,28 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         txtClave.setText(misDatos.getUsuarios()[usuAct].getClave());
         txtConfirmacion.setText(misDatos.getUsuarios()[usuAct].getClave());
         cmbPerfil.setSelectedIndex(misDatos.getUsuarios()[usuAct].getPerfil());
+    }
+    
+    private void llenarTabla() {
+        //´Encabezados de la tabla
+        String titulos[] = { "ID Usuario", "Nombres", "Apellidos", "Perfil"};
+        //Datos de la tabla
+        String registro[] = new String[4];
+        miTabla = new DefaultTableModel(null, titulos);
+        for (int i = 0; i < misDatos.numeroUsuarios(); i++) {
+            registro[0] = misDatos.getUsuarios()[i].getIdUsuario();
+            registro[1] = misDatos.getUsuarios()[i].getNombres();
+            registro[2] = misDatos.getUsuarios()[i].getApellidos();
+            registro[3] = perfil(misDatos.getUsuarios()[i].getPerfil());
+            miTabla.addRow(registro);
+            tblTabla.setModel(miTabla);
+        }
+        
+    }
+    
+    private String perfil(int idPerfil) {
+        if(idPerfil == 1) return "Administrador";
+        else return "Empleado";
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -546,6 +639,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSiguiente;
     private javax.swing.JButton btnUltimo;
     private javax.swing.JComboBox<String> cmbPerfil;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblApeliidos;
     private javax.swing.JLabel lblCamposObligatorios;
     private javax.swing.JLabel lblClave;
@@ -553,6 +647,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblNombres;
     private javax.swing.JLabel lblPerfil;
     private javax.swing.JLabel lblUsuario;
+    private javax.swing.JTable tblTabla;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JPasswordField txtClave;
     private javax.swing.JPasswordField txtConfirmacion;
