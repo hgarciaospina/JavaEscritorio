@@ -1,4 +1,9 @@
 package clases;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author HENRY
@@ -12,7 +17,16 @@ public class Utilidades {
      }catch (NumberFormatException nfe){
         return false; 
      }
-  }   
-}
+  }
+  
+  public static Date stringToDate(String fecha){
+    SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy/mm/dd");
+    Date aux = null;
+    try {
+        aux = formatoDelTexto.parse(fecha);
+    }catch (ParseException ex){        
+    }
+    return aux;
+   }
+}  
     
-
