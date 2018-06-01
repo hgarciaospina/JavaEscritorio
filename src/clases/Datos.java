@@ -17,13 +17,13 @@ public class Datos {
         
         //Creamos usuarios
         Usuario miUsuario;
-        miUsuario = new Usuario("henry", "Henry", "García Ospina", "123", 1);
+        miUsuario = new Usuario("henry", "Henry", "García Ospina", "123", 0);
         misUsuarios[conUsu] = miUsuario;
         conUsu++;
-        miUsuario = new Usuario("pepe", "Pedro", "Infante", "123", 2);
+        miUsuario = new Usuario("pepe", "Pedro", "Infante", "123", 1);
         misUsuarios[conUsu] = miUsuario;
         conUsu++;
-        miUsuario = new Usuario("maria", "María", "Conchita", "123", 1);
+        miUsuario = new Usuario("maria", "María", "Conchita", "123", 2);
         misUsuarios[conUsu] = miUsuario;
         conUsu++;
         
@@ -46,20 +46,20 @@ public class Datos {
         Cliente miCliente;
         miCliente = new Cliente("1", 1, "Diana", "Sierra Gómez", 
                                 "Calle Luna Calle Sol", "456 7890", 1,
-                                 Utilidades.stringToDate("1995, 1, 9"), 
-                                 Utilidades.stringToDate("2012, 10, 23"));
+                                 Utilidades.stringToDate("9/2/1990"), 
+                                 Utilidades.stringToDate("28/10/2012"));
         misClientes[conCli] = miCliente;
         conCli++;
-        miCliente = new Cliente("1", 2, "José", "Cardona Osorio", 
+        miCliente = new Cliente("2", 2, "José", "Cardona Osorio", 
                                 "Calle Sol Calle Luna", "678 3333", 2,
-                                 Utilidades.stringToDate("1990, 8, 17"), 
-                                 Utilidades.stringToDate("2014, 5, 13"));
+                                 Utilidades.stringToDate("1/5/1980"), 
+                                 Utilidades.stringToDate("6/11/2010"));
         misClientes[conCli] = miCliente;
         conCli++;
-        miCliente = new Cliente("1", 2, "Pepito", "Pepón Linares", 
+        miCliente = new Cliente("3", 3, "Pepito", "Pepón Linares", 
                                 "Avenida Alegría Calle 67", "878 5678", 2,
-                                 Utilidades.stringToDate("1987, 11, 27"), 
-                                 Utilidades.stringToDate("2015, 4, 8"));
+                                 Utilidades.stringToDate("19/8/1970"), 
+                                 Utilidades.stringToDate("23/9/2009"));
         misClientes[conCli] = miCliente;
         conCli++;
     }
@@ -121,7 +121,7 @@ public class Datos {
     
     public int posicionCliente(String cliente){
         int aux = -1;
-        for (int i = 0; i < conPro; i++) {
+        for (int i = 0; i < conCli; i++) {
             if(misClientes[i].getIdCliente().equals(cliente)) {
                 return i;    
             }

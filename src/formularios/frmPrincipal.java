@@ -72,6 +72,11 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         mnuArchivoClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clientes.png"))); // NOI18N
         mnuArchivoClientes.setText("Clientes");
+        mnuArchivoClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuArchivoClientesActionPerformed(evt);
+            }
+        });
         mnuArchivo.add(mnuArchivoClientes);
 
         mnuArchivoProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/productos.png"))); // NOI18N
@@ -174,6 +179,13 @@ public class frmPrincipal extends javax.swing.JFrame {
         dpnEscritorio.add(misProductos);
         misProductos.show();
     }//GEN-LAST:event_mnuArchivoProductosActionPerformed
+
+    private void mnuArchivoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoClientesActionPerformed
+        frmClientes misClientes = new frmClientes();
+        misClientes.setDatos(misDatos);
+        dpnEscritorio.add(misClientes);
+        misClientes.show();
+    }//GEN-LAST:event_mnuArchivoClientesActionPerformed
 
     /**
      * @param args the command line arguments

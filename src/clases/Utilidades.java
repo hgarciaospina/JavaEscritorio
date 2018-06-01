@@ -20,7 +20,7 @@ public class Utilidades {
   }
   
   public static Date stringToDate(String fecha){
-    SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy/mm/dd");
+    SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/mm/yyyy");
     Date aux = null;
     try {
         aux = formatoDelTexto.parse(fecha);

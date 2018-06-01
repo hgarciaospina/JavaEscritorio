@@ -7,8 +7,6 @@ package formularios;
 
 import clases.Cliente;
 import clases.Datos;
-import clases.Producto;
-import clases.Utilidades;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -209,7 +207,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tblTabla);
 
-        cmbTipoID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un documento...", "Cédula de ciudadanía", "NIT", "Cédula de extranjería", "Tarjeta de identidad", "Registro Civil", "Pasaporte", " " }));
+        cmbTipoID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un documento...", "Cédula de Ciudadanía", "NIT", "Tarjeta de Identidad", "Registro Civil", "Cédula de extranjería", "Pasaporte", " " }));
         cmbTipoID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbTipoIDActionPerformed(evt);
@@ -228,7 +226,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
         lblTelefono.setText("Telefóno     :");
         lblTelefono.setToolTipText("");
 
-        cmbCiudad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una ciudad...", "Leticia", "Medellín", "Arauca", "Barranquilla", "Bogotá", "Cartagena de Indias", "Tunja", "Manizales", "Florencia", "Yopal", "Popayán", "Valledupar", "Quibdó", "Montería", "Bogotá", "Inírida", "San José del Guaviare", "Neiva", "Riohacha", "Santa Marta", "Villavicencio", "Pasto", "San José de Cúcuta", "Mocoa", "Armenia", "Pereira", "San Andrés", "Bucaramanga", "Sincelejo", "Ibagué", "Cali", "Mitú", "Puerto Carreño", " " }));
+        cmbCiudad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una ciudad...", "Arauca", "Armenia", "Barranquilla", "Bogotá", "Bucaramanga", "Cali", "Cartagena de Indias", "Florencia", "Ibagué", "Inírida", "Leticia", "Manizales", "Medellín", "Mitú", "Mocoa", "Montería", "Neiva", "Pasto", "Pereira", "Popayán", "Puerto Carreño", "Quibdó", "Riohacha", "San Andrés", "Cúcuta", "San José del Guaviare", "Santa Marta", "Sincelejo", "Tunja", "Valledupar", "Villavicencio", "Yopal" }));
 
         lblCiudad.setText("Ciudad   *:");
         lblCiudad.setToolTipText("");
@@ -665,32 +663,74 @@ public class frmClientes extends javax.swing.JInternalFrame {
     
     private void llenarTabla() {
         //´Encabezados de la tabla
-        String titulos[] = { "ID Producto", "Descripción", "Precio", "IVA", "Notas"};
+        String titulos[] = { "ID Cliente", "Tipo ID", "Nombres", "Apellidos",
+            "Dirección", "Teléfono", "Ciudad", "Fe. Nacimiento", "F. Ingreso"};
         //Datos de la tabla
-        String registro[] = new String[5];
+        String registro[] = new String[9];
         miTabla = new DefaultTableModel(null, titulos);
-        for (int i = 0; i < misDatos.numeroProductos(); i++) {
-            registro[0] = misDatos.getProductos()[i].getIdProducto();
-            registro[1] = misDatos.getProductos()[i].getDescripcion();
-            //Se concatena el precio con "" para convertirlo en cadena
-            registro[2] = "" + misDatos.getProductos()[i].getPrecio();
-            registro[3] = iva(misDatos.getProductos()[i].getIva());
-            registro[4] = misDatos.getProductos()[i].getNota();
+        for (int i = 0; i < misDatos.numeroClientes(); i++) {
+            registro[0] = misDatos.getClientes()[i].getIdCliente();
+            registro[1] = tipoID(misDatos.getClientes()[i].getIdTipo());
+            registro[2] = misDatos.getClientes()[i].getNombres();
+            registro[3] = misDatos.getClientes()[i].getApellidos();
+            registro[4] = misDatos.getClientes()[i].getDireccion();
+            registro[5] = misDatos.getClientes()[i].getTelefono();
+            registro[6] = ciudad(misDatos.getClientes()[i].getIdCiudad());
+            registro[7] = "" + (misDatos.getClientes()[i].getFechaNacimiento());
+            registro[8] = "" + (misDatos.getClientes()[i].getFechaIngreso());
             miTabla.addRow(registro);
         }
         tblTabla.setModel(miTabla);
     }
     
-    private String iva(int idIVA){
-        switch(idIVA){
-            case 0: return "0%";
-            case 1: return "10%";
-            case 2: return "16%";
-            case 3: return "19%";
+    private String tipoID(int id){
+        switch(id){
+            case 1: return "Cédula de ciudadanía";
+            case 2: return "NIT";
+            case 3: return "Tarjeta de identidad";
+            case 4: return "Registro Cívil";
+            case 5: return "Cédula de extranjería";
+            case 6: return "Pasaporte";        
             default: return "No definido";
         }   
-    
     }
+    private String ciudad(int id){
+        switch(id){
+            case 1: return "Arauca";
+            case 2: return "Armenia";
+            case 3: return "Barranquilla";
+            case 4: return "Bogotá";
+            case 5: return "Bucaramanga";
+            case 6: return "Cali"; 
+            case 7: return "Cartagena de Indias";
+            case 8: return "Cúcuta";
+            case 9: return "Florencia";
+            case 10: return "Ibagué";
+            case 11: return "Inírida";
+            case 12: return "Leticia";
+            case 13: return "Manizales";
+            case 14: return "Medellín";
+            case 15: return "Mitú";
+            case 16: return "Mocoa";
+            case 17: return "Montería";
+            case 18: return "Neiva";
+            case 19: return "Pasto"; 
+            case 20: return "Popayán";
+            case 21: return "Puerto Carreño";
+            case 22: return "Quibdó";
+            case 23: return "Riohacha";
+            case 24: return "San Andrés";
+            case 25: return "San José del Guaviare";
+            case 26: return "Santa Marta";
+            case 27: return "Sincelejo";
+            case 28: return "Tunja";
+            case 29: return "Valledupar";
+            case 30: return "Villavicencio";
+            case 31: return "Yopal";
+            default: return "No definido";
+        }   
+    }
+    
     
     private String perfil(int idPerfil) {
         if(idPerfil == 1) return "Administrador";
