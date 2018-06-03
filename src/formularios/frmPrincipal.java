@@ -6,6 +6,7 @@
 package formularios;
 
 import clases.Datos;
+import clases.DesktopConFondo;
 
 /**
  *
@@ -33,7 +34,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dpnEscritorio = new javax.swing.JDesktopPane();
+        dpnEscritorio = new DesktopConFondo();
         mnuBar = new javax.swing.JMenuBar();
         mnuArchivo = new javax.swing.JMenu();
         mnuArchivoClientes = new javax.swing.JMenuItem();
@@ -53,6 +54,11 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de facturación");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         dpnEscritorio.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -186,6 +192,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         dpnEscritorio.add(misClientes);
         misClientes.show();
     }//GEN-LAST:event_mnuArchivoClientesActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        ((DesktopConFondo) dpnEscritorio).setImagen("/images/Fondo.jpg");
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
