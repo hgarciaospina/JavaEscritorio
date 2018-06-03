@@ -1,0 +1,3 @@
+henry|Henry|García Ospina|123|1
+pepe|Pedro|Infante|123|1
+maria|María|Conchita|123|2

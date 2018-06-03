@@ -1,0 +1,4 @@
+1|Coca Cola x 350 ML|1500|0|
+2|Pan de leche|2500|1|Se vende mejor caliente
+3|Salchicho|3500|2|Delicioso con queso
+4|Hamburguesas|2500|3|Calientes son lo mejor

@@ -56,5 +56,14 @@ public class Producto {
     public void setNota(String nota) {
         this.nota = nota;
     }
+    
+    @Override
+    public String toString(){
+        return idProducto + "|"
+                + descripcion + "|"
+                + precio + "|"
+                + iva + "|"
+                + nota;
+    }
           
 }

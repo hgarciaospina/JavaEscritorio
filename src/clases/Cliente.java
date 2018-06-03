@@ -96,4 +96,16 @@ public class Cliente {
     public void setFechaIngreso(Date fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
+    
+    @Override
+    public String toString(){
+        return idCliente + "|"
+                + idTipo + "|"
+                + nombres + "|"
+                + apellidos + "|"
+                + direccion + "|"
+                + idCiudad + "|"
+                + fechaNacimiento + "|"
+                + fechaIngreso;
+    }
 }
