@@ -104,8 +104,9 @@ public class Cliente {
                 + nombres + "|"
                 + apellidos + "|"
                 + direccion + "|"
+                + telefono + "|"
                 + idCiudad + "|"
-                + fechaNacimiento + "|"
-                + fechaIngreso;
+                + Utilidades.formatDate(fechaNacimiento) + "|"
+                + Utilidades.formatDate(fechaIngreso);
     }
 }

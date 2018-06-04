@@ -659,6 +659,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
         txtApellidos.setText(misDatos.getClientes()[cliAct].getApellidos());
         txtDireccion.setText(misDatos.getClientes()[cliAct].getDireccion());
         txtTelefono.setText(misDatos.getClientes()[cliAct].getTelefono());
+        cmbCiudad.setSelectedIndex(misDatos.getClientes()[cliAct].getIdCiudad());
         dchfechaNacimiento.setDate(misDatos.getClientes()[cliAct].getFechaNacimiento());
         dchfechaIngreso.setDate(misDatos.getClientes()[cliAct].getFechaIngreso());
     }
@@ -666,7 +667,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
     private void llenarTabla() {
         //´Encabezados de la tabla
         String titulos[] = { "ID Cliente", "Tipo ID", "Nombres", "Apellidos",
-            "Dirección", "Teléfono", "Ciudad", "Fe. Nacimiento", "F. Ingreso"};
+            "Dirección", "Teléfono", "Ciudad", "F. Nacimiento", "F. Ingreso"};
         //Datos de la tabla
         String registro[] = new String[9];
         miTabla = new DefaultTableModel(null, titulos);

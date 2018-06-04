@@ -345,7 +345,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
         txtIDProducto.setEditable(true);
         txtDescripcion.setEditable(true);
         txtPrecio.setEditable(true);
-        txtNota.setEditable(true);
+        txtNota.setEnabled(true);
         cmbIVA.setEditable(true);
       
         //Limpiar campos
@@ -447,7 +447,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
         txtDescripcion.setEditable(false);
         txtPrecio.setEditable(false);
         cmbIVA.setEditable(false);
-        txtNota.setEditable(false);;
+        txtNota.setEditable(false);
         
         //Actualizar cambios en la tabla
         llenarTabla();
@@ -568,6 +568,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
         //Se concatena el precio con "" para convertirlo en cadena
         txtPrecio.setText("" + misDatos.getProductos()[proAct].getPrecio());
         cmbIVA.setSelectedIndex(misDatos.getProductos()[proAct].getIva());
+        txtNota.setText(misDatos.getProductos()[proAct].getNota());
     }
     
     private void llenarTabla() {

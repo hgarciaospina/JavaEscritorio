@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
-public class Datos {
+public final class Datos {
 
     private int maxUsu = 50;
     private int maxPro = 100;
@@ -22,53 +22,15 @@ public class Datos {
 
     public Datos() {
 
-        //Creamos usuarios
-        Usuario miUsuario;
-        miUsuario = new Usuario("henry", "Henry", "García Ospina", "123", 1);
-        misUsuarios[conUsu] = miUsuario;
-        conUsu++;
-        miUsuario = new Usuario("pepe", "Pedro", "Infante", "123", 1);
-        misUsuarios[conUsu] = miUsuario;
-        conUsu++;
-        miUsuario = new Usuario("maria", "María", "Conchita", "123", 2);
-        misUsuarios[conUsu] = miUsuario;
-        conUsu++;
+        //Cargamos usuarios
+        cargarUsuarios();
 
-        //Creamos productos
-        Producto miProducto;
-        miProducto = new Producto("1", "Coca Cola x 350 ML", 1500, 0, "");
-        misProductos[conPro] = miProducto;
-        conPro++;
-        miProducto = new Producto("2", "Pan de leche", 2500, 1, "Se vende mejor caliente");
-        misProductos[conPro] = miProducto;
-        conPro++;
-        miProducto = new Producto("3", "Salchicho", 3500, 2, "Delicioso con queso");
-        misProductos[conPro] = miProducto;
-        conPro++;
-        miProducto = new Producto("4", "Hamburguesas", 2500, 3, "Calientes son lo mejor");
-        misProductos[conPro] = miProducto;
-        conPro++;
-
-        //Creamos clientes
-        Cliente miCliente;
-        miCliente = new Cliente("1", 1, "Diana", "Sierra Gómez",
-                "Calle Luna Calle Sol", "456 7890", 1,
-                Utilidades.stringToDate("9/2/1990"),
-                Utilidades.stringToDate("28/10/2012"));
-        misClientes[conCli] = miCliente;
-        conCli++;
-        miCliente = new Cliente("2", 2, "José", "Cardona Osorio",
-                "Calle Sol Calle Luna", "678 3333", 2,
-                Utilidades.stringToDate("1/5/1980"),
-                Utilidades.stringToDate("6/11/2010"));
-        misClientes[conCli] = miCliente;
-        conCli++;
-        miCliente = new Cliente("3", 3, "Pepito", "Pepón Linares",
-                "Avenida Alegría Calle 67", "878 5678", 2,
-                Utilidades.stringToDate("19/8/1970"),
-                Utilidades.stringToDate("23/9/2009"));
-        misClientes[conCli] = miCliente;
-        conCli++;
+        //Cargamos productos
+        cargarProductos();
+        
+        //Cargamos clientes
+        cargarClientes();
+        
     }
 
     public int numeroUsuarios() {
@@ -344,10 +306,197 @@ public class Datos {
                 clave = aux;
                 linea = linea.substring(pos + 1);
                 perfil = new Integer(linea);
+                
+                Usuario miUsuario = new Usuario(
+                        idUsuario,
+                        nombres,
+                        apellidos,
+                        clave,
+                        perfil);
+                misUsuarios[conUsu] = miUsuario;
+                conUsu++;
+                
             }
             
-        } catch (Exception e) {
-        }
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        } finally{
+            try {
+                if (fr !=null) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                  e2.printStackTrace();  
+            }
+        } 
+    }
+    
+    public void cargarProductos(){
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
         
+        try {
+            archivo = new File("Data/productos.txt");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            
+            int pos;
+            String aux;
+            String linea;
+            
+            String idProducto;
+            String descripcion;
+            int precio;
+            int iva;
+            String nota;
+           
+            while((linea = br.readLine()) != null){
+                //Extraemos ID Producto
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                idProducto = aux;
+                linea = linea.substring(pos + 1);
+                
+                //Extraemos descripción
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                descripcion = aux;
+                linea = linea.substring(pos + 1);
+                
+                //Extraemos precio
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                precio = new Integer(aux);
+                linea = linea.substring(pos + 1);
+                
+                //Extraemos iva y nota
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                iva = new Integer(aux);
+                linea = linea.substring(pos + 1);
+                nota = linea;
+                Producto miProducto = new Producto(
+                        idProducto,
+                        descripcion,
+                        precio,
+                        iva,
+                        nota); 
+                misProductos[conPro] = miProducto;
+                conPro++;
+            }
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        } finally{
+            try {
+                if (fr !=null) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                  e2.printStackTrace();  
+            }
+        }   
+    }
+    
+     public void cargarClientes(){
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        
+        try {
+            archivo = new File("Data/clientes.txt");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            
+            int pos;
+            String aux;
+            String linea;
+            
+            String idCliente;
+            int idTipo;
+            String nombres;
+            String apellidos;
+            String direccion;
+            String telefono;
+            int idCiudad;
+            Date fechaNacimiento;
+            Date fechaIngreso;
+            
+            while((linea = br.readLine()) != null){
+                //Extraemos idCliente
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                idCliente = aux;
+                linea = linea.substring(pos + 1);
+                
+                //Extraemos idTipo
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                idTipo = Integer.parseInt(aux);
+                linea = linea.substring(pos + 1);
+                
+                //Extraemos nombres
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                nombres = aux;
+                linea = linea.substring(pos + 1);
+                
+                //Extraemos apellidos
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                apellidos = aux;
+                linea = linea.substring(pos + 1);
+                
+                //Extraemos direccion
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                direccion = aux;
+                linea = linea.substring(pos + 1);
+                
+                //Extraemos telefono
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                telefono = aux;
+                linea = linea.substring(pos + 1);
+                
+                //Extraemos idCiudad
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                idCiudad = Integer.parseInt(aux);
+                linea = linea.substring(pos + 1);
+                
+                //Extraemos fecha nacimiento y fecha de ingreso
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                fechaNacimiento = Utilidades.stringToDate(aux);
+                linea = linea.substring(pos + 1);
+                fechaIngreso = Utilidades.stringToDate(linea);
+                
+                Cliente miCliente = new Cliente(
+                        idCliente,
+                        idTipo,
+                        nombres,
+                        apellidos,
+                        direccion,
+                        telefono,
+                        idCiudad,
+                        fechaNacimiento,
+                        fechaIngreso);
+                misClientes[conCli] = miCliente;
+                conCli++;
+            }
+            
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        } finally{
+            try {
+                if (fr !=null) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                  e2.printStackTrace();  
+            }
+        } 
     }
 }
+ 

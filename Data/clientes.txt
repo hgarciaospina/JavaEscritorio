@@ -1,3 +1,4 @@
-1|1|Diana|Sierra Gómez|Calle Luna Calle Sol|1|Tue Jan 09 00:02:00 COT 1990|Sat Jan 28 00:10:00 COT 2012
-2|2|José|Cardona Osorio|Calle Sol Calle Luna|2|Tue Jan 01 00:05:00 COT 1980|Wed Jan 06 00:11:00 COT 2010
-3|3|Pepito|Pepón Linares|Avenida Alegría Calle 67|2|Mon Jan 19 00:08:00 COT 1970|Fri Jan 23 00:09:00 COT 2009
+1|1|Diana|Sierra Gómez|Calle Luna Calle Sol|456 7890|1|09/02/1990|28/10/2012
+2|2|José|Cardona Osorio|Calle Sol Calle Luna|678 3333|2|01/05/1980|06/11/2010
+3|3|Pepito|Pepón Linares|Avenida Alegría Calle 67|878 5678|2|19/08/1970|23/09/2009
+4|5|Dalay|Lama|El Tibet|777 7777|7|04/32/2018|04/32/2018

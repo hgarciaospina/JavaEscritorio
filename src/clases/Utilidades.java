@@ -20,13 +20,20 @@ public class Utilidades {
   }
   
   public static Date stringToDate(String fecha){
-    SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/mm/yyyy");
+    SimpleDateFormat formatoDelTexto;
+    formatoDelTexto = new SimpleDateFormat("dd/mm/yyyy");
     Date aux = null;
     try {
         aux = formatoDelTexto.parse(fecha);
     }catch (ParseException ex){        
     }
     return aux;
+   }
+
+   public static String formatDate(Date fecha){
+       SimpleDateFormat formatoDelTexto;
+       formatoDelTexto = new SimpleDateFormat("dd/mm/yyyy");
+       return formatoDelTexto.format(fecha);
    }
 }  
     

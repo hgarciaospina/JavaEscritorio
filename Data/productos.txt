@@ -1,4 +1,6 @@
-1|Coca Cola x 350 ML|1500|0|
+1|Coca Cola x 350 ML|1500|0|Deliciosa bien fría
 2|Pan de leche|2500|1|Se vende mejor caliente
 3|Salchicho|3500|2|Delicioso con queso
 4|Hamburguesas|2500|3|Calientes son lo mejor
+5|Queso Holandes x 500 grs|8500|3|
+6|Pollo campesino x 1000 grs|12000|1|Fresco y delicioso
