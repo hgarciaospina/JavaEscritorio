@@ -111,6 +111,11 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         mnuArchivoCambioClave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cambio_clave.png"))); // NOI18N
         mnuArchivoCambioClave.setText("Cambio clave");
+        mnuArchivoCambioClave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuArchivoCambioClaveActionPerformed(evt);
+            }
+        });
         mnuArchivo.add(mnuArchivoCambioClave);
 
         mnuArchivoCambioUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cambiarusuario.png"))); // NOI18N
@@ -224,6 +229,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         miLogin.setLocationRelativeTo(null);
         miLogin.setVisible(true);
     }//GEN-LAST:event_mnuArchivoCambioUsuarioActionPerformed
+
+    private void mnuArchivoCambioClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoCambioClaveActionPerformed
+        frmCambioClave miCambio = new frmCambioClave(this, rootPaneCheckingEnabled);
+        miCambio.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_mnuArchivoCambioClaveActionPerformed
 
     /**
      * @param args the command line arguments
