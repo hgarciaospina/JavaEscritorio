@@ -67,6 +67,15 @@ public final class Datos {
         }
         return false;
     }
+    
+     public int getPerfil(String usuario) {
+        for (int i = 0; i < conUsu; i++) {
+            if (misUsuarios[i].getIdUsuario().equals(usuario)){
+                return misUsuarios[i].getPerfil();
+            }
+        }
+        return -1;
+    }
 
     public int posicionUsuario(String usuario) {
         int aux = -1;

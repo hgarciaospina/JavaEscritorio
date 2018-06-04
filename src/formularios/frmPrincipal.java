@@ -15,9 +15,14 @@ import clases.DesktopConFondo;
 public class frmPrincipal extends javax.swing.JFrame {
     
     private Datos misDatos;
+    private int perfil;
     
     public void setDatos(Datos misDatos){
         this.misDatos = misDatos;
+    }
+    
+    public void setPerfil(int perfil) {
+        this.perfil = perfil;
     }
     
     
@@ -110,6 +115,11 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         mnuArchivoCambioUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cambiarusuario.png"))); // NOI18N
         mnuArchivoCambioUsuario.setText("Cambio usuario");
+        mnuArchivoCambioUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuArchivoCambioUsuarioActionPerformed(evt);
+            }
+        });
         mnuArchivo.add(mnuArchivoCambioUsuario);
         mnuArchivo.add(jSeparator2);
 
@@ -195,8 +205,25 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuArchivoClientesActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        //Establece la imagen de fondo
         ((DesktopConFondo) dpnEscritorio).setImagen("/images/Fondo.jpg");
+        
+        //Establece permisos
+        if (perfil == 2) { //Si es empleado, eliminamos permisos
+            mnuArchivoClientes.setEnabled(false);
+            mnuArchivoProductos.setEnabled(false);
+            mnuArchivoUsuarios.setEnabled(false);
+            mnuMovimientosReporteFacturas.setEnabled(false);
+        }
     }//GEN-LAST:event_formWindowOpened
+
+    private void mnuArchivoCambioUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoCambioUsuarioActionPerformed
+        this.setVisible(false);
+        frmLogin miLogin = new frmLogin();
+        miLogin.setDatos(misDatos);
+        miLogin.setLocationRelativeTo(null);
+        miLogin.setVisible(true);
+    }//GEN-LAST:event_mnuArchivoCambioUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
