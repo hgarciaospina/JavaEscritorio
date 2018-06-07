@@ -46,7 +46,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="lblClaveActual1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtNuevaClave" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="txtClaveNueva" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="lblClaveActual" min="-2" max="-2" attributes="0"/>
@@ -69,7 +69,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblClaveActual1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtNuevaClave" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtClaveNueva" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -96,10 +96,10 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblClaveActual1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nueva clave:"/>
+        <Property name="text" type="java.lang.String" value="Clave Nueva:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JPasswordField" name="txtNuevaClave">
+    <Component class="javax.swing.JPasswordField" name="txtClaveNueva">
     </Component>
     <Component class="javax.swing.JLabel" name="lblClaveActual2">
       <Properties>

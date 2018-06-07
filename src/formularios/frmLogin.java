@@ -6,7 +6,6 @@
 package formularios;
 
 import clases.Datos;
-import static java.awt.GridBagConstraints.BOTH;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -123,6 +122,7 @@ public class frmLogin extends javax.swing.JFrame {
         this.setVisible(false);
         miPrincipal.setDatos(misDatos);
         miPrincipal.setPerfil(misDatos.getPerfil(txtUsuario.getText()));
+        miPrincipal.setClave(new String(txtClave.getPassword()));
         miPrincipal.setExtendedState(JFrame.MAXIMIZED_BOTH);
         miPrincipal.setVisible(true);
     }//GEN-LAST:event_btnAceptarActionPerformed
