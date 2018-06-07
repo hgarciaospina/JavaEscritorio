@@ -105,7 +105,7 @@ public class frmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
@@ -123,6 +123,7 @@ public class frmLogin extends javax.swing.JFrame {
         miPrincipal.setDatos(misDatos);
         miPrincipal.setPerfil(misDatos.getPerfil(txtUsuario.getText()));
         miPrincipal.setClave(new String(txtClave.getPassword()));
+        miPrincipal.setUsuario(txtUsuario.getText());
         miPrincipal.setExtendedState(JFrame.MAXIMIZED_BOTH);
         miPrincipal.setVisible(true);
     }//GEN-LAST:event_btnAceptarActionPerformed

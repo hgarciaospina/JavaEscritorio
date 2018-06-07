@@ -68,13 +68,22 @@ public final class Datos {
         return false;
     }
     
-     public int getPerfil(String usuario) {
+    public int getPerfil(String usuario) {
         for (int i = 0; i < conUsu; i++) {
             if (misUsuarios[i].getIdUsuario().equals(usuario)){
                 return misUsuarios[i].getPerfil();
             }
         }
         return -1;
+    }
+    
+    public void cambiarClave(String usuario, String clave) {
+        for (int i = 0; i < conUsu; i++) {
+            if (misUsuarios[i].getIdUsuario().equals(usuario)){
+                misUsuarios[i].setClave(clave);
+                return;
+            }
+        }
     }
 
     public int posicionUsuario(String usuario) {

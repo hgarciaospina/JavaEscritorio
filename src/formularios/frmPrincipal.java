@@ -31,7 +31,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         this.clave = clave;
     }
     
-     public void setUsuario(String usuario) {
+    public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
     
@@ -243,6 +243,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void mnuArchivoCambioClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoCambioClaveActionPerformed
         frmCambioClave miCambio = new frmCambioClave(this, rootPaneCheckingEnabled);
         miCambio.setClave(clave);
+        miCambio.setUsuario(usuario);
+        miCambio.setDatos(misDatos);
         miCambio.setLocationRelativeTo(this);
         miCambio.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_mnuArchivoCambioClaveActionPerformed
