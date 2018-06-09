@@ -155,6 +155,11 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         mnuMovimientosNuevaFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/factura.png"))); // NOI18N
         mnuMovimientosNuevaFactura.setText("Nueva Factura");
+        mnuMovimientosNuevaFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuMovimientosNuevaFacturaActionPerformed(evt);
+            }
+        });
         mnuMovimientos.add(mnuMovimientosNuevaFactura);
 
         mnuMovimientosReporteFacturas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reportefactura.png"))); // NOI18N
@@ -169,6 +174,11 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         mnuAcercaDe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/acercade.png"))); // NOI18N
         mnuAcercaDe.setText("Acerca de");
+        mnuAcercaDe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuAcercaDeActionPerformed(evt);
+            }
+        });
         mnuAyuda.add(mnuAcercaDe);
 
         mnuAyudaAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ayudausuario.png"))); // NOI18N
@@ -248,6 +258,19 @@ public class frmPrincipal extends javax.swing.JFrame {
         miCambio.setLocationRelativeTo(this);
         miCambio.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_mnuArchivoCambioClaveActionPerformed
+
+    private void mnuAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAcercaDeActionPerformed
+        frmAcercaDe miAcerca = new frmAcercaDe(this, rootPaneCheckingEnabled);
+        miAcerca.setLocationRelativeTo(this);
+        miAcerca.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_mnuAcercaDeActionPerformed
+
+    private void mnuMovimientosNuevaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMovimientosNuevaFacturaActionPerformed
+        frmFactura miFactura = new frmFactura(); 
+        miFactura.setDatos(misDatos);
+        dpnEscritorio.add(miFactura);
+        miFactura.show();
+    }//GEN-LAST:event_mnuMovimientosNuevaFacturaActionPerformed
 
     /**
      * @param args the command line arguments
