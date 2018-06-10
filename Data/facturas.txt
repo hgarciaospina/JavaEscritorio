@@ -1,0 +1,11 @@
+1|1|1|Diana Sierra Gómez|10/55/2018
+2|4|Hamburguesas|2500|10|25000|
+2|5|Queso Holandes x 500 grs|8500|3|25500|
+2|1|Coca Cola x 350 ML|1500|3|4500|
+1|1|3|Pepito Pepón Linares|10/03/2018
+2|6|Pollo campesino x 1000 grs|12000|2|24000|
+2|1|Coca Cola x 350 ML|1500|2|3000|
+2|5|Queso Holandes x 500 grs|8500|1|8500|
+1|2|2|José Cardona Osorio|10/03/2018
+2|2|Pan de leche|2500|13|32500|
+2|3|Salchicho|3500|3|10500|

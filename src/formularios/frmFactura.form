@@ -193,6 +193,9 @@
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Elimina producto de la factura"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAdicionar">
       <Properties>
@@ -212,6 +215,9 @@
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Eliminar todos los producto de la factura"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarTodoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnGrabar">
       <Properties>
@@ -220,6 +226,9 @@
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Graba la factura"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGrabarActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>

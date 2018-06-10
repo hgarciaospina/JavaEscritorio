@@ -8,6 +8,9 @@ package formularios;
 import clases.Datos;
 import clases.Opcion;
 import clases.Utilidades;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -101,6 +104,11 @@ public class frmFactura extends javax.swing.JInternalFrame {
 
         btnEliminar.setIcon(new javax.swing.ImageIcon("D:\\JavaEscritorio - Tutorial#2\\JavaEscritorio\\src\\images\\elimnar.png")); // NOI18N
         btnEliminar.setToolTipText("Elimina producto de la factura");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/adicionar.png"))); // NOI18N
         btnAdicionar.setToolTipText("Adiciona producto a la factura");
@@ -112,9 +120,19 @@ public class frmFactura extends javax.swing.JInternalFrame {
 
         btnEliminarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eliminar.png"))); // NOI18N
         btnEliminarTodo.setToolTipText("Eliminar todos los producto de la factura");
+        btnEliminarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarTodoActionPerformed(evt);
+            }
+        });
 
         btnGrabar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/grabarfactura.png"))); // NOI18N
         btnGrabar.setToolTipText("Graba la factura");
+        btnGrabar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGrabarActionPerformed(evt);
+            }
+        });
 
         tblDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -232,6 +250,7 @@ public class frmFactura extends javax.swing.JInternalFrame {
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         //Cargamos clientes
         Opcion opc = new Opcion("NA", "Seleccione un cliente...");
+        cmbCliente.addItem(opc);
         for (int i = 0; i < misDatos.numeroClientes(); i++) {
             opc = new Opcion(
                     misDatos.getClientes()[i].getIdCliente(),
@@ -242,6 +261,7 @@ public class frmFactura extends javax.swing.JInternalFrame {
         
         //Cargamos productos
         opc = new Opcion("NA", "Seleccione un producto...");
+        cmbProducto.addItem(opc);
         for (int i = 0; i < misDatos.numeroProductos(); i++) {
             opc = new Opcion(
                     misDatos.getProductos()[i].getIdProducto(),
@@ -311,6 +331,125 @@ public class frmFactura extends javax.swing.JInternalFrame {
         totales();
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
+    private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
+        if (cmbCliente.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(rootPane, 
+                    "Debe seleccionar un cliente");
+            cmbCliente.requestFocusInWindow();
+            return;
+        }
+        //Antes debemos de validar de que txtTotalCantidad no venga vació 
+        if (!txtTotalCantidad.getText().isEmpty()) {
+            //Convertimos la cantidad ingresada en txtTotalCantidad en entero
+             int totCan = new Integer(txtTotalCantidad.getText());
+            if ((totCan == 0)) {
+                JOptionPane.showMessageDialog(rootPane, 
+                        "Debe de ingresar detalles de la factura");
+                cmbProducto.requestFocusInWindow();
+                return;
+            }
+        }
+        
+        int rta = JOptionPane.showConfirmDialog(rootPane, 
+                "Está seguro de grabar esta factura?");
+        if (rta != 0) {
+            return;
+        }
+        
+        //Adicionamos un consecutivo a la factura
+        int numFac = misDatos.getNumFac() + 1;
+        
+        //Grabamos la factura
+        FileWriter fw = null;
+        PrintWriter pw = null;
+        try {
+             /*true permite que se adicionen registros,
+              de lo contrario borraria los datos anteriores
+             */
+              fw = new FileWriter("Data/facturas.txt", true);
+              pw = new PrintWriter(fw);
+         
+              //Encabezado de factura
+              String aux = "";
+                     aux = "1|"  //Registro tipo 1 : Encabezado factura
+                      + numFac + "|" //número de factura
+                      + ((Opcion)
+                          cmbCliente.getSelectedItem()).getValor() + "|"//código del cliente
+                      + ((Opcion)
+                          cmbCliente.getSelectedItem()).getDescripcion() + "|"//nombre del cliente
+                      + txtFecha.getText();//fecha de la factura 
+              pw.println(aux); //grabamos el registro
+              
+              //Detalle de factura
+              int num = 0;
+              num = tblDetalle.getRowCount();
+              for (int i = 0; i < num; i++) {
+                   aux = "2|"  //Registro tipo 2 : Detalle factura
+                           + Utilidades.objectToString(tblDetalle.getValueAt(i, 0)) + "|"
+                           + Utilidades.objectToString(tblDetalle.getValueAt(i, 1)) + "|"
+                           + Utilidades.objectToString(tblDetalle.getValueAt(i, 2)) + "|"
+                           + Utilidades.objectToString(tblDetalle.getValueAt(i, 3)) + "|"
+                           + Utilidades.objectToString(tblDetalle.getValueAt(i, 4)) + "|"; //Código del producto 
+                   pw.println(aux); //grabamos el registro
+                } 
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } finally {
+            try {
+                if (fw != null) {
+                    fw.close();
+                }
+            } catch (IOException e2) {
+                e2.printStackTrace();
+            }
+        }
+        
+        JOptionPane.showMessageDialog(rootPane, 
+                    "Factura: " + numFac + " generada con éxito");
+        misDatos.setNumFac(numFac);
+        
+        //Inicializamos campos
+        cmbCliente.setSelectedIndex(0);
+        limpiarTabla(); //Borra los registros de detalles de la tabla
+        totales(); //Dejamos lo totales en cero (0)
+        cmbCliente.requestFocusInWindow(); //Colocamos el foco en el combo clientes
+    }//GEN-LAST:event_btnGrabarActionPerformed
+
+    private void btnEliminarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTodoActionPerformed
+        int rta = JOptionPane.showConfirmDialog(rootPane, 
+                "Está seguro de eliminar los detalles de la factura?");
+        if (rta != 0) {
+            return;
+        }
+        limpiarTabla();
+        totales();
+    }//GEN-LAST:event_btnEliminarTodoActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        if (cmbProducto.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(rootPane, 
+                    "Debe selecconar un producto");
+            cmbProducto.requestFocus();
+            return;
+        }
+        try {
+            DefaultTableModel modelo=(DefaultTableModel) tblDetalle.getModel();
+            int filas=tblDetalle.getRowCount();
+            for (int i = 0;filas>i; i++) {
+                String idTabla = Utilidades.objectToString(tblDetalle.getValueAt(i, 0));
+                String idCombo = ((Opcion)cmbProducto.getSelectedItem()).getValor();
+                if (idTabla.equals(idCombo)) {
+                   modelo.removeRow(i);
+                   //Actualizamos totales
+                    totales();
+                   return;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnBuscarCliente;
@@ -360,8 +499,20 @@ public class frmFactura extends javax.swing.JInternalFrame {
             sumVal += Utilidades.objectToInt(tblDetalle.getValueAt(i, 4));
         }
         //Concatenamos a sumCan con "" para convertirlo a String y poderlo mostrar en txtTotalCantidad
-        txtTotalCantidad.setText(" " + sumCan);
-        txtTotalValor.setText(" " + sumVal);
+        txtTotalCantidad.setText("" + sumCan);
+        txtTotalValor.setText("" + sumVal);
+    }
+    
+    public void limpiarTabla(){
+        try {
+            DefaultTableModel modelo=(DefaultTableModel) tblDetalle.getModel();
+            int filas=tblDetalle.getRowCount();
+            for (int i = 0;filas>i; i++) {
+                modelo.removeRow(0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 

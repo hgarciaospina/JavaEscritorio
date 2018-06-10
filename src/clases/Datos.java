@@ -36,7 +36,15 @@ public final class Datos {
         cargarConfiguracion();
         
     }
-
+    
+    public int getNumFac(){
+        return numFac;
+    }
+    
+    public void setNumFac(int numFac){
+        this.numFac = numFac;
+    }
+    
     public int numeroUsuarios() {
         return conUsu;
     }
@@ -287,7 +295,6 @@ public final class Datos {
     private void grabarConfiguracion() {
         FileWriter fw = null;
         PrintWriter pw = null;
-
         try {
             fw = new FileWriter("Data/configuracion.ini");
             pw = new PrintWriter(fw);
