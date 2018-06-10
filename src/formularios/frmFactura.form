@@ -201,6 +201,9 @@
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Adiciona producto a la factura"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdicionarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnEliminarTodo">
       <Properties>

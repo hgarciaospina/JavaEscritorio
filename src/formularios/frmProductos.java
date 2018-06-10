@@ -377,7 +377,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
             return;
         }
         
-         if (txtPrecio.getText().equals("")) {
+        if (txtPrecio.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Debe digitar un precio");
             txtPrecio.requestFocusInWindow();
             return;

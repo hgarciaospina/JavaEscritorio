@@ -19,6 +19,7 @@ public final class Datos {
     private int conUsu = 0;
     private int conPro = 0;
     private int conCli = 0;
+    private int numFac = 0;
 
     public Datos() {
 
@@ -30,6 +31,9 @@ public final class Datos {
         
         //Cargamos clientes
         cargarClientes();
+        
+        //Cargamos configuración
+        cargarConfiguracion();
         
     }
 
@@ -95,7 +99,7 @@ public final class Datos {
         }
         return -1;
     }
-
+    
     public int posicionProducto(String producto) {
         int aux = -1;
         for (int i = 0; i < conPro; i++) {
@@ -202,6 +206,7 @@ public final class Datos {
         grabarUsuarios();
         grabarClientes();
         grabarProductos();
+        grabarConfiguracion();
     }
 
     private void grabarUsuarios() {
@@ -279,6 +284,29 @@ public final class Datos {
         }
     }
     
+    private void grabarConfiguracion() {
+        FileWriter fw = null;
+        PrintWriter pw = null;
+
+        try {
+            fw = new FileWriter("Data/configuracion.ini");
+            pw = new PrintWriter(fw);
+            
+            pw.println("[General]");
+            pw.println("[FacturaActual=" + numFac);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } finally {
+            try {
+                if (fw != null) {
+                    fw.close();
+                }
+            } catch (IOException e2) {
+                e2.printStackTrace();
+            }
+        }
+    }
+    
     public void cargarUsuarios(){
         File archivo = null;
         FileReader fr = null;
@@ -332,8 +360,7 @@ public final class Datos {
                         clave,
                         perfil);
                 misUsuarios[conUsu] = miUsuario;
-                conUsu++;
-                
+                conUsu++;         
             }
             
         } catch (Exception e1) {
@@ -516,5 +543,42 @@ public final class Datos {
             }
         } 
     }
+     
+     public void cargarConfiguracion(){
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        
+        try {
+            archivo = new File("Data/configuracion.ini");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+         
+            String linea;
+           
+            while((linea = br.readLine()) != null){
+                if (linea.startsWith("FacturacionActual")) {
+                    /*En el archivo configuracion.ini FacturaActual=0
+                      el número de la factura empieza en la posición
+                      14, después del = del nombre de la variable
+                      FacturaActual, en la posición del cero (0)
+                      y lo convertimos en entero.
+                    */
+                    numFac = new Integer(linea.substring(14));
+                }
+            }
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        } finally{
+            try {
+                if (fr !=null) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                  e2.printStackTrace();  
+            }
+        }   
+    }
+    
 }
  

@@ -9,6 +9,9 @@ import clases.Datos;
 import clases.Opcion;
 import clases.Utilidades;
 import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -101,6 +104,11 @@ public class frmFactura extends javax.swing.JInternalFrame {
 
         btnAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/adicionar.png"))); // NOI18N
         btnAdicionar.setToolTipText("Adiciona producto a la factura");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarActionPerformed(evt);
+            }
+        });
 
         btnEliminarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eliminar.png"))); // NOI18N
         btnEliminarTodo.setToolTipText("Eliminar todos los producto de la factura");
@@ -250,6 +258,59 @@ public class frmFactura extends javax.swing.JInternalFrame {
         llenarTabla();
     }//GEN-LAST:event_formInternalFrameOpened
 
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        if (cmbProducto.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(rootPane, 
+                    "Debe selecconar un producto");
+            cmbProducto.requestFocus();
+            return;
+        }
+        
+        if (txtCantidad.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, 
+                    "Debe ingresar una cantidad");
+            txtCantidad.requestFocus();
+            return;
+        }
+          
+        if (!Utilidades.isNumeric(txtCantidad.getText())){
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar una cantidad númerica");
+            txtCantidad.setText("");
+            txtCantidad.requestFocusInWindow();
+            return;
+        } 
+        
+        int cantidad = Integer.parseInt(txtCantidad.getText());
+        if (cantidad <= 0){
+            JOptionPane.showMessageDialog(rootPane, "Debe ingresar una cantidad mayor a cero");
+            txtCantidad.setText("");
+            txtCantidad.requestFocusInWindow();
+            return;
+        } 
+        
+        //Buscamos los datos del producto seleccionado
+        int pos = misDatos.posicionProducto(((Opcion)cmbProducto.getSelectedItem()).getValor());
+        
+        //Adicionamos el producto a la tabla
+        String registro[] = new String[5];
+        registro[0] = misDatos.getProductos()[pos].getIdProducto();
+        registro[1] = misDatos.getProductos()[pos].getDescripcion();
+        //El precio es númerico lo concatenamos con ""  para converirlo a string
+        registro[2] = "" + misDatos.getProductos()[pos].getPrecio();
+        registro[3] = "" + cantidad;
+        //Calculamos el valor de la compra que es igual a la cantidad * precio del producto
+        registro[4] = "" + (cantidad * misDatos.getProductos()[pos].getPrecio());
+        miTabla.addRow(registro);
+        
+        //Inicializamos campos
+        cmbProducto.setSelectedIndex(0);
+        txtCantidad.setText("");
+        cmbProducto.requestFocusInWindow();
+        
+        //cada vez que adicionamos una línea de detalle actualizamos totales
+        totales();
+    }//GEN-LAST:event_btnAdicionarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnBuscarCliente;
@@ -278,6 +339,29 @@ public class frmFactura extends javax.swing.JInternalFrame {
             "Valor"};
         miTabla = new DefaultTableModel(null, titulos);
         tblDetalle.setModel(miTabla);
-    }    
+        
+        //Alinear campos númericos a la derecha 
+        DefaultTableCellRenderer tcr = new   DefaultTableCellRenderer();
+        tcr.setHorizontalAlignment(SwingConstants.RIGHT);
+        tblDetalle.getColumnModel().getColumn(2).setCellRenderer(tcr);
+        tblDetalle.getColumnModel().getColumn(3).setCellRenderer(tcr);
+        tblDetalle.getColumnModel().getColumn(4).setCellRenderer(tcr);
+    }   
+    
+    private void totales(){
+        int num = 0;
+        int sumCan = 0;
+        int sumVal = 0;
+        num = tblDetalle.getRowCount();
+        for (int i = 0; i < num; i++) {
+            //Convertimos a entero para poder sumar las cantidades
+            sumCan += Utilidades.objectToInt(tblDetalle.getValueAt(i, 3));
+            //Convertimos a entero para poder sumar los valores de los productos comprados
+            sumVal += Utilidades.objectToInt(tblDetalle.getValueAt(i, 4));
+        }
+        //Concatenamos a sumCan con "" para convertirlo a String y poderlo mostrar en txtTotalCantidad
+        txtTotalCantidad.setText(" " + sumCan);
+        txtTotalValor.setText(" " + sumVal);
+    }
 }
 
