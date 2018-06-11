@@ -96,6 +96,11 @@ public class frmFactura extends javax.swing.JInternalFrame {
 
         btnBuscarCliente.setText("....");
         btnBuscarCliente.setToolTipText("Busca un cliente");
+        btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarClienteActionPerformed(evt);
+            }
+        });
 
         btnBuscarProducto.setText("....");
         btnBuscarProducto.setToolTipText("Busca un producto");
@@ -449,6 +454,13 @@ public class frmFactura extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
+        frmBusquedaCliente miBusqueda = new frmBusquedaCliente(null, closable);
+        miBusqueda.setDatos(misDatos);
+        miBusqueda.setLocationRelativeTo(null);
+        miBusqueda.setVisible(true);
+    }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;

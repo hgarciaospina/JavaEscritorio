@@ -2,3 +2,8 @@
 2|2|José|Cardona Osorio|Calle Sol Calle Luna|678 3333|2|01/05/1980|06/11/2010
 3|3|Pepito|Pepón Linares|Avenida Alegría Calle 67|878 5678|2|19/08/1970|23/09/2009
 4|5|Dalay|Lama|El Tibet|777 7777|7|04/32/2018|04/32/2018
+5|1|Darley|Cardona Ramirez|Av 30 de Agosto No.23-45|345 6767|6|10/00/1965|10/40/2018
+6|5|Davinson|Charly Charly|Calle del Mono No.23.90|456 1234|3|10/42/2018|10/42/2018
+7|4|Dora|Soto|||5|10/00/1996|10/44/2018
+8|3|Sandra|López|||9|10/00/1985|10/45/2018
+9|3|Soyla|Pérez|123444441||16|10/00/2002|10/46/2018

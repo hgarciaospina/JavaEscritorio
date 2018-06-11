@@ -1,6 +1,11 @@
 1|Coca Cola x 350 ML|1500|0|Deliciosa bien fría
 2|Pan de leche|2500|1|Se vende mejor caliente
-3|Salchicho|3500|2|Delicioso con queso
+3|Salchichon Cervecero x 500 grs|6900|2|Delicioso con queso
 4|Hamburguesas|2500|3|Calientes son lo mejor
 5|Queso Holandes x 500 grs|8500|3|
 6|Pollo campesino x 1000 grs|12000|1|Fresco y delicioso
+7|Papas Margarita x 200 grs|1900|1|
+8|Pan Coco x 3 unidades|5000|2|
+9|Salchichon Ahumado x 500 grs|7800|2|
+10|Cocadas x 6 unidades|4750|3|
+11|Queso Campesino x 700 grs|7300|2|
