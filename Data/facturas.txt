@@ -9,3 +9,6 @@
 1|2|2|José Cardona Osorio|10/03/2018
 2|2|Pan de leche|2500|13|32500|
 2|3|Salchicho|3500|3|10500|
+1|1|2|José Cardona Osorio|10/23/2018
+2|10|Cocadas x 6 unidades|4750|3|14250|
+2|4|Hamburguesas|2500|4|10000|

@@ -9,7 +9,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author HENRY
  */
-public class frmBusquedaCliente extends javax.swing.JDialog {
+public class frmBusquedaProducto extends javax.swing.JDialog {
 
     private Datos misDatos;
     private DefaultTableModel miTabla;
@@ -24,40 +24,25 @@ public class frmBusquedaCliente extends javax.swing.JDialog {
     }
     
     private void llenarTabla() {
-       String titulos[] = { "ID Cliente","Nombres", "Apellidos"};
-       String registro[] = new String[3];
+       String titulos[] = { "ID Producto","Descripción"};
+       String registro[] = new String[2];
        miTabla = new DefaultTableModel(null, titulos);
        
         if (txtCriterio.getText().equals("")) {
-            for (int i = 0; i < misDatos.numeroClientes(); i++) {
-                registro[0] = misDatos.getClientes()[i].getIdCliente();
-                registro[1] = misDatos.getClientes()[i].getNombres();
-                registro[2] = misDatos.getClientes()[i].getApellidos();
+            for (int i = 0; i < misDatos.numeroProductos(); i++) {
+                registro[0] = misDatos.getProductos()[i].getIdProducto();
+                registro[1] = misDatos.getProductos()[i].getDescripcion();
                 miTabla.addRow(registro);  
             }
             tblTabla.setModel(miTabla);
             return;  
         }
         
-        if(rbtNombres.isSelected()){
-            for (int i = 0; i < misDatos.numeroClientes(); i++) {  
-                if (misDatos.getClientes()[i].getNombres().startsWith(txtCriterio.getText())) {
-                   registro[0] = misDatos.getClientes()[i].getIdCliente();
-                   registro[1] = misDatos.getClientes()[i].getNombres();
-                   registro[2] = misDatos.getClientes()[i].getApellidos();
-                   miTabla.addRow(registro);  
-                }
-            }
-            tblTabla.setModel(miTabla);
-            return;
-        } 
-        
-        if(rbtApellidos.isSelected()){
-            for (int i = 0; i < misDatos.numeroClientes(); i++) {  
-                if (misDatos.getClientes()[i].getApellidos().startsWith(txtCriterio.getText())) {
-                   registro[0] = misDatos.getClientes()[i].getIdCliente();
-                   registro[1] = misDatos.getClientes()[i].getNombres();
-                   registro[2] = misDatos.getClientes()[i].getApellidos();
+        if(rbtDescripcion.isSelected()){
+            for (int i = 0; i < misDatos.numeroProductos(); i++) {  
+                if (misDatos.getProductos()[i].getDescripcion().startsWith(txtCriterio.getText())) {
+                   registro[0] = misDatos.getProductos()[i].getIdProducto();
+                   registro[1] = misDatos.getProductos()[i].getDescripcion();
                    miTabla.addRow(registro);  
                 }
             }
@@ -66,11 +51,10 @@ public class frmBusquedaCliente extends javax.swing.JDialog {
         } 
         
         if(rbtID.isSelected()){
-            for (int i = 0; i < misDatos.numeroClientes(); i++) {  
-                if (misDatos.getClientes()[i].getIdCliente().startsWith(txtCriterio.getText())) {
-                   registro[0] = misDatos.getClientes()[i].getIdCliente();
-                   registro[1] = misDatos.getClientes()[i].getNombres();
-                   registro[2] = misDatos.getClientes()[i].getApellidos();
+            for (int i = 0; i < misDatos.numeroProductos(); i++) {  
+                if (misDatos.getProductos()[i].getIdProducto().startsWith(txtCriterio.getText())) {
+                   registro[0] = misDatos.getProductos()[i].getIdProducto();
+                   registro[1] = misDatos.getProductos()[i].getDescripcion();
                    miTabla.addRow(registro);  
                 }
             }
@@ -78,14 +62,13 @@ public class frmBusquedaCliente extends javax.swing.JDialog {
         }   
     }
     
-    public frmBusquedaCliente(java.awt.Frame parent, boolean modal) {
+    public frmBusquedaProducto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
         //Se agrupan los botonrd para que sean excluyentes
         bgrTipoBusqueda.add(rbtID);
-        bgrTipoBusqueda.add(rbtApellidos);
-        bgrTipoBusqueda.add(rbtNombres);
+        bgrTipoBusqueda.add(rbtDescripcion);
         
     }
 
@@ -95,8 +78,7 @@ public class frmBusquedaCliente extends javax.swing.JDialog {
 
         bgrTipoBusqueda = new javax.swing.ButtonGroup();
         rbtID = new javax.swing.JRadioButton();
-        rbtNombres = new javax.swing.JRadioButton();
-        rbtApellidos = new javax.swing.JRadioButton();
+        rbtDescripcion = new javax.swing.JRadioButton();
         txtCriterio = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTabla = new javax.swing.JTable();
@@ -104,7 +86,7 @@ public class frmBusquedaCliente extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Búsqueda Clientes");
+        setTitle("Búsqueda Productos");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -119,17 +101,10 @@ public class frmBusquedaCliente extends javax.swing.JDialog {
             }
         });
 
-        rbtNombres.setText("Nombres");
-        rbtNombres.addActionListener(new java.awt.event.ActionListener() {
+        rbtDescripcion.setText("Descripción");
+        rbtDescripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtNombresActionPerformed(evt);
-            }
-        });
-
-        rbtApellidos.setText("Apellidos");
-        rbtApellidos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtApellidosActionPerformed(evt);
+                rbtDescripcionActionPerformed(evt);
             }
         });
 
@@ -179,9 +154,8 @@ public class frmBusquedaCliente extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(rbtID)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rbtNombres)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rbtApellidos))
+                        .addComponent(rbtDescripcion)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(txtCriterio))
                 .addGap(35, 35, 35))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -192,7 +166,7 @@ public class frmBusquedaCliente extends javax.swing.JDialog {
                 .addGap(33, 33, 33))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {rbtApellidos, rbtID, rbtNombres});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {rbtDescripcion, rbtID});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,8 +174,7 @@ public class frmBusquedaCliente extends javax.swing.JDialog {
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbtID)
-                    .addComponent(rbtNombres)
-                    .addComponent(rbtApellidos))
+                    .addComponent(rbtDescripcion))
                 .addGap(18, 18, 18)
                 .addComponent(txtCriterio, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -221,17 +194,11 @@ public class frmBusquedaCliente extends javax.swing.JDialog {
         txtCriterio.requestFocusInWindow();
     }//GEN-LAST:event_formWindowOpened
 
-    private void rbtNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtNombresActionPerformed
+    private void rbtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtDescripcionActionPerformed
         txtCriterio.setText("");
         txtCriterio.requestFocusInWindow();
         llenarTabla();
-    }//GEN-LAST:event_rbtNombresActionPerformed
-
-    private void rbtApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtApellidosActionPerformed
-        txtCriterio.setText("");
-        txtCriterio.requestFocusInWindow();
-        llenarTabla();
-    }//GEN-LAST:event_rbtApellidosActionPerformed
+    }//GEN-LAST:event_rbtDescripcionActionPerformed
 
     private void rbtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtIDActionPerformed
         txtCriterio.setText("");
@@ -285,20 +252,21 @@ public class frmBusquedaCliente extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmBusquedaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmBusquedaProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmBusquedaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmBusquedaProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmBusquedaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmBusquedaProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmBusquedaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmBusquedaProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                frmBusquedaCliente dialog = new frmBusquedaCliente(new javax.swing.JFrame(), true);
+                frmBusquedaProducto dialog = new frmBusquedaProducto(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -315,9 +283,8 @@ public class frmBusquedaCliente extends javax.swing.JDialog {
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JRadioButton rbtApellidos;
+    private javax.swing.JRadioButton rbtDescripcion;
     private javax.swing.JRadioButton rbtID;
-    private javax.swing.JRadioButton rbtNombres;
     private javax.swing.JTable tblTabla;
     private javax.swing.JTextField txtCriterio;
     // End of variables declaration//GEN-END:variables

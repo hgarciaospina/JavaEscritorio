@@ -104,6 +104,11 @@ public class frmFactura extends javax.swing.JInternalFrame {
 
         btnBuscarProducto.setText("....");
         btnBuscarProducto.setToolTipText("Busca un producto");
+        btnBuscarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarProductoActionPerformed(evt);
+            }
+        });
 
         lblFecha1.setText("Cantidad:");
 
@@ -396,7 +401,7 @@ public class frmFactura extends javax.swing.JInternalFrame {
                            + Utilidades.objectToString(tblDetalle.getValueAt(i, 3)) + "|"
                            + Utilidades.objectToString(tblDetalle.getValueAt(i, 4)) + "|"; //Código del producto 
                    pw.println(aux); //grabamos el registro
-                } 
+              } 
         } catch (IOException e1) {
             e1.printStackTrace();
         } finally {
@@ -460,7 +465,36 @@ public class frmFactura extends javax.swing.JInternalFrame {
         miBusqueda.setDatos(misDatos);
         miBusqueda.setLocationRelativeTo(null);
         miBusqueda.setVisible(true);
+        //Devuelve el dato id del cliente seleccionado en la búsqueda
+        String rta = miBusqueda.getRespuesta();
+        if (rta.equals("")) {
+            return;
+        }
+        for (int i = 0; i < cmbCliente.getItemCount(); i++) {
+            if (((Opcion)cmbCliente.getItemAt(i)).getValor().equals(rta)) {
+                cmbCliente.setSelectedIndex(i);
+                return;
+            }
+        }
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
+
+    private void btnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProductoActionPerformed
+        frmBusquedaProducto miBusqueda = new frmBusquedaProducto(null, closable);
+        miBusqueda.setDatos(misDatos);
+        miBusqueda.setLocationRelativeTo(null);
+        miBusqueda.setVisible(true);
+        //Devuelve el dato id del cliente seleccionado en la búsqueda
+        String rta = miBusqueda.getRespuesta();
+        if (rta.equals("")) {
+            return;
+        }
+        for (int i = 0; i < cmbProducto.getItemCount(); i++) {
+            if (((Opcion)cmbProducto.getItemAt(i)).getValor().equals(rta)) {
+                cmbProducto.setSelectedIndex(i);
+                return;
+            }
+        }
+    }//GEN-LAST:event_btnBuscarProductoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;

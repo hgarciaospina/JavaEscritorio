@@ -7,7 +7,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="B&#xfa;squeda Clientes"/>
+    <Property name="title" type="java.lang.String" value="B&#xfa;squeda Productos"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -38,9 +38,8 @@
                   <Group type="102" attributes="0">
                       <Component id="rbtID" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="rbtNombres" linkSize="1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="rbtApellidos" linkSize="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="rbtDescripcion" linkSize="1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Component id="txtCriterio" alignment="0" max="32767" attributes="0"/>
               </Group>
@@ -61,8 +60,7 @@
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="rbtID" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="rbtNombres" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="rbtApellidos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="rbtDescripcion" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="txtCriterio" min="-2" pref="20" max="-2" attributes="0"/>
@@ -88,20 +86,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtIDActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="rbtNombres">
+    <Component class="javax.swing.JRadioButton" name="rbtDescripcion">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nombres"/>
+        <Property name="text" type="java.lang.String" value="Descripci&#xf3;n"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtNombresActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="rbtApellidos">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Apellidos"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtApellidosActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtDescripcionActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCriterio">
