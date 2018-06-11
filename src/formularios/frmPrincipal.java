@@ -1,6 +1,7 @@
 package formularios;
 
 import clases.Datos;
+import clases.Datos2;
 import clases.DesktopConFondo;
 
 /**
@@ -9,13 +10,19 @@ import clases.DesktopConFondo;
  */
 public class frmPrincipal extends javax.swing.JFrame {
     
-    private Datos misDatos;
+   
     private int perfil;
     private String clave;
     private String usuario;
+    private Datos misDatos;
+    private Datos2 misDatos2;
     
     public void setDatos(Datos misDatos){
         this.misDatos = misDatos;
+    }
+    
+     public void setDatos2(Datos2 misDatos2){
+        this.misDatos2 = misDatos2;
     }
     
     public void setPerfil(int perfil) {

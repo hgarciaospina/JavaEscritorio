@@ -1,6 +1,7 @@
 package formularios;
 
 import clases.Datos;
+import clases.Datos2;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -11,9 +12,14 @@ import javax.swing.JOptionPane;
 public class frmLogin extends javax.swing.JFrame {
 
     private Datos misDatos;
+    private Datos2 misDatos2;
     
     public void setDatos(Datos misDatos){
         this.misDatos = misDatos;
+    }
+    
+    public void setDatos2(Datos2 misDatos2){
+        this.misDatos2 = misDatos2;
     }
     
     public frmLogin() {
@@ -104,7 +110,7 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        if (!misDatos.validarUsuario(txtUsuario.getText(), 
+        if (!misDatos2.validarUsuario(txtUsuario.getText(), 
                 new String(txtClave.getPassword()))) {
             JOptionPane.showMessageDialog(rootPane, "Usuario o clave incorrecto");
             txtUsuario.setText("");
@@ -116,7 +122,8 @@ public class frmLogin extends javax.swing.JFrame {
         frmPrincipal miPrincipal = new frmPrincipal();
         this.setVisible(false);
         miPrincipal.setDatos(misDatos);
-        miPrincipal.setPerfil(misDatos.getPerfil(txtUsuario.getText()));
+        miPrincipal.setDatos2(misDatos2);
+        miPrincipal.setPerfil(misDatos2.getPerfil(txtUsuario.getText()));
         miPrincipal.setClave(new String(txtClave.getPassword()));
         miPrincipal.setUsuario(txtUsuario.getText());
         miPrincipal.setExtendedState(JFrame.MAXIMIZED_BOTH);
