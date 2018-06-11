@@ -300,7 +300,7 @@ public final class Datos {
             pw = new PrintWriter(fw);
             
             pw.println("[General]");
-            pw.println("[FacturaActual=" + numFac);
+            pw.println("FacturaActual=" + numFac);
         } catch (IOException e1) {
             e1.printStackTrace();
         } finally {
@@ -564,7 +564,7 @@ public final class Datos {
             String linea;
            
             while((linea = br.readLine()) != null){
-                if (linea.startsWith("FacturacionActual")) {
+                if (linea.startsWith("FacturaActual=")) {
                     /*En el archivo configuracion.ini FacturaActual=0
                       el número de la factura empieza en la posición
                       14, después del = del nombre de la variable

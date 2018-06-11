@@ -1,14 +1,15 @@
 1|1|1|Diana Sierra Gómez|10/55/2018
-2|4|Hamburguesas|2500|10|25000|
-2|5|Queso Holandes x 500 grs|8500|3|25500|
-2|1|Coca Cola x 350 ML|1500|3|4500|
-1|1|3|Pepito Pepón Linares|10/03/2018
-2|6|Pollo campesino x 1000 grs|12000|2|24000|
 2|1|Coca Cola x 350 ML|1500|2|3000|
-2|5|Queso Holandes x 500 grs|8500|1|8500|
-1|2|2|José Cardona Osorio|10/03/2018
-2|2|Pan de leche|2500|13|32500|
-2|3|Salchicho|3500|3|10500|
-1|1|2|José Cardona Osorio|10/23/2018
-2|10|Cocadas x 6 unidades|4750|3|14250|
+1|2|2|José Cardona Osorio|10/55/2018
+2|2|Pan de leche|2500|4|10000|
+2|3|Salchichon Cervecero x 500 grs|6900|3|20700|
+1|3|6|Davinson Charly Charly|10/56/2018
+2|1|Coca Cola x 350 ML|1500|2|3000|
+2|2|Pan de leche|2500|4|10000|
+2|3|Salchichon Cervecero x 500 grs|6900|3|20700|
 2|4|Hamburguesas|2500|4|10000|
+2|5|Queso Holandes x 500 grs|8500|2|17000|
+1|4|7|Dora Soto|10/57/2018
+2|2|Pan de leche|2500|10|25000|
+2|5|Queso Holandes x 500 grs|8500|2|17000|
+2|1|Coca Cola x 350 ML|1500|4|6000|
