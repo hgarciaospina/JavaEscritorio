@@ -5,8 +5,13 @@
  */
 package formularios;
 
-import clases.Datos;
+import clases.Datos2;
 import clases.Usuario;
+import clases.Utilidades;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,13 +21,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmUsuarios extends javax.swing.JInternalFrame {
 
-    private Datos misDatos;
+    private Datos2 misDatos2;
     private int usuAct = 0;
     private boolean nuevo = false;
     private DefaultTableModel miTabla;
-    
-    public void setDatos(Datos misDatos){
-        this.misDatos = misDatos;
+       
+    public void setDatos2(Datos2 misDatos2){
+        this.misDatos2 = misDatos2;
     }
     public frmUsuarios() {
        //initComponentes pone a false los setEditable --> setEditable(false) 
@@ -420,16 +425,15 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
             return;
         }
         
-        // Si es nuevo validamos que el usuario no existe
-        int pos = misDatos.posicionUsuario(txtIDUsuario.getText());
+        // Si es nuevo validamos que el usuario no exista
         if (nuevo) {
-            if ( pos != -1) {
+            if (misDatos2.existeUsuario(txtIDUsuario.getText())) {
                 JOptionPane.showMessageDialog(rootPane, "El usuario ya existe");
                 txtIDUsuario.requestFocusInWindow();
                 return;
             }
         } else {    
-            if ( pos == -1) {
+            if (!misDatos2.existeUsuario(txtIDUsuario.getText())) {
                 JOptionPane.showMessageDialog(rootPane, "El usuario no existe");
                 txtIDUsuario.requestFocusInWindow();
                 return;
@@ -446,9 +450,9 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         
         String msg;
         if (nuevo) {
-            msg = misDatos.agregarUsuario(miUsuario);  
+            msg = misDatos2.agregarUsuario(miUsuario);
         } else{
-             msg = misDatos.modificarUsuario(miUsuario, pos);  
+             msg = misDatos2.modificarUsuario(miUsuario);  
         }
   
         JOptionPane.showMessageDialog(rootPane, msg);
@@ -537,8 +541,8 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        mostrarRegistro();
         llenarTabla();
+        mostrarRegistro();
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void btnPrimeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeroActionPerformed
@@ -547,13 +551,13 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPrimeroActionPerformed
 
     private void btnUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoActionPerformed
-        usuAct = misDatos.numeroUsuarios() - 1;
+        usuAct = misDatos2.numeroUsuarios() - 1;
         mostrarRegistro();
     }//GEN-LAST:event_btnUltimoActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         usuAct++;
-        if (usuAct == misDatos.numeroUsuarios()) {
+        if (usuAct == misDatos2.numeroUsuarios()) {
             usuAct = 0;
         }
         mostrarRegistro();
@@ -562,7 +566,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
         usuAct--;
         if (usuAct == -1) {
-            usuAct = misDatos.numeroUsuarios() - 1;
+            usuAct = misDatos2.numeroUsuarios() - 1;
         }
         mostrarRegistro();
     }//GEN-LAST:event_btnAnteriorActionPerformed
@@ -573,7 +577,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
             return;
         }
         String msg;
-        msg = misDatos.borrarUsuario(usuAct);
+        msg = misDatos2.borrarUsuario(txtIDUsuario.getText());
         JOptionPane.showMessageDialog(rootPane, msg);
         usuAct = 0;
         mostrarRegistro();
@@ -587,44 +591,73 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         if (usuario.equals("")) {
             return;
         }
-        int pos = misDatos.posicionUsuario(usuario);
-        if (pos == -1){
+        if (!misDatos2.existeUsuario(usuario)){
             JOptionPane.showMessageDialog(rootPane, "Usuario no existe");
             return;
         }
-        usuAct = pos;
+        
+        int num = 0;
+        num = tblTabla.getRowCount();
+        for (int i = 0; i < num; i++) {
+            if(Utilidades.objectToString(tblTabla.getValueAt(i, 0)).equals(usuario)) {
+                usuAct = i;
+            }
+        }
         mostrarRegistro();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void mostrarRegistro(){
-        txtIDUsuario.setText(misDatos.getUsuarios()[usuAct].getIdUsuario());
-        txtNombres.setText(misDatos.getUsuarios()[usuAct].getNombres());
-        txtApellidos.setText(misDatos.getUsuarios()[usuAct].getApellidos());
-        txtClave.setText(misDatos.getUsuarios()[usuAct].getClave());
-        txtConfirmacion.setText(misDatos.getUsuarios()[usuAct].getClave());
-        cmbPerfil.setSelectedIndex(misDatos.getUsuarios()[usuAct].getPerfil());
+        txtIDUsuario.setText(Utilidades.objectToString(tblTabla.getValueAt(usuAct, 0)));
+        txtNombres.setText(Utilidades.objectToString(tblTabla.getValueAt(usuAct, 1)));
+        txtApellidos.setText(Utilidades.objectToString(tblTabla.getValueAt(usuAct, 2)));
+        txtClave.setText("");
+        txtConfirmacion.setText("");
+        cmbPerfil.setSelectedIndex(perfil(Utilidades.objectToString(tblTabla.getValueAt(usuAct, 3))));
     }
     
     private void llenarTabla() {
-        //´Encabezados de la tabla
-        String titulos[] = { "ID Usuario", "Nombres", "Apellidos", "Perfil"};
-        //Datos de la tabla
-        String registro[] = new String[4];
-        miTabla = new DefaultTableModel(null, titulos);
-        for (int i = 0; i < misDatos.numeroUsuarios(); i++) {
-            registro[0] = misDatos.getUsuarios()[i].getIdUsuario();
-            registro[1] = misDatos.getUsuarios()[i].getNombres();
-            registro[2] = misDatos.getUsuarios()[i].getApellidos();
-            registro[3] = perfil(misDatos.getUsuarios()[i].getPerfil());
-            miTabla.addRow(registro);
+        try {
+            //´Encabezados de la tabla
+            String titulos[] = { "ID Usuario", "Nombres", "Apellidos", "Clave", "Perfil"};
+            //Datos de la tabla
+            String registro[] = new String[5];
+            miTabla = new DefaultTableModel(null, titulos);
+            ResultSet rs = misDatos2.getUsuarios();
+            while (rs.next()) {
+                registro[0] = rs.getString("idUsuario");
+                registro[1] = rs.getString("nombres");
+                registro[2] = rs.getString("apellidos");
+                registro[3] = rs.getString("clave");
+                registro[4] = perfil(rs.getInt("idPerfil"));
+                miTabla.addRow(registro);
+            }
             tblTabla.setModel(miTabla);
+            //Ocultammos el campo clave
+            tblTabla.getColumnModel().getColumn(3).setMaxWidth(0);
+            tblTabla.getColumnModel().getColumn(3).setMinWidth(0);
+            tblTabla.getTableHeader().getColumnModel().getColumn(3).setMaxWidth(0);
+            tblTabla.getTableHeader().getColumnModel().getColumn(3).setMinWidth(0);        
+        } catch (SQLException ex) {
+            Logger.getLogger(frmUsuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
     
     private String perfil(int idPerfil) {
-        if(idPerfil == 1) return "Administrador";
-        else return "Empleado";
+        if(idPerfil == 1){
+            return "Administrador";
+        } 
+        else {
+            return "Empleado";
+        }
+    }
+    
+    private int perfil(String idPerfil) {
+        if(idPerfil.equals("Administrador")){
+            return 1;
+        } 
+        else {
+            return 2;
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

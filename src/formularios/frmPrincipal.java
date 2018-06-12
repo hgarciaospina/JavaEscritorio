@@ -207,7 +207,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void mnuArchivoUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoUsuariosActionPerformed
         frmUsuarios misUsuarios = new frmUsuarios();
-        misUsuarios.setDatos(misDatos);
+        misUsuarios.setDatos2(misDatos2);
         dpnEscritorio.add(misUsuarios);
         misUsuarios.show();
     }//GEN-LAST:event_mnuArchivoUsuariosActionPerformed
