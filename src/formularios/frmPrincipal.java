@@ -220,6 +220,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void mnuArchivoProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoProductosActionPerformed
         frmProductos misProductos = new frmProductos();
         misProductos.setDatos(misDatos);
+        misProductos.setDatos2(misDatos2);
         dpnEscritorio.add(misProductos);
         misProductos.show();
     }//GEN-LAST:event_mnuArchivoProductosActionPerformed

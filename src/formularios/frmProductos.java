@@ -1,8 +1,13 @@
 package formularios;
 
 import clases.Datos;
+import clases.Datos2;
 import clases.Producto;
 import clases.Utilidades;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,19 +18,24 @@ import javax.swing.table.DefaultTableModel;
 public class frmProductos extends javax.swing.JInternalFrame {
 
     private Datos misDatos;
+    private Datos2 misDatos2;
     private int proAct = 0;
     private boolean nuevo = false;
     private DefaultTableModel miTabla;
-    
-    public void setDatos(Datos misDatos){
+
+    public void setDatos(Datos misDatos) {
         this.misDatos = misDatos;
     }
+
+    public void setDatos2(Datos2 misDatos2) {
+        this.misDatos2 = misDatos2;
+    }
+
     public frmProductos() {
-       //initComponentes pone a false los setEditable --> setEditable(false) 
+        //initComponentes pone a false los setEditable --> setEditable(false) 
         initComponents();
     }
 
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -324,7 +334,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-       //Habilita los botones
+        //Habilita los botones
         btnPrimero.setEnabled(false);
         btnAnterior.setEnabled(false);
         btnSiguiente.setEnabled(false);
@@ -335,27 +345,27 @@ public class frmProductos extends javax.swing.JInternalFrame {
         btnBuscar.setEnabled(false);
         btnGuardar.setEnabled(true);
         btnCancelar.setEnabled(true);
-       
+
         //Habilita campos
         txtIDProducto.setEditable(true);
         txtDescripcion.setEditable(true);
         txtPrecio.setEditable(true);
         txtNota.setEnabled(true);
         cmbIVA.setEditable(true);
-      
+
         //Limpiar campos
         txtIDProducto.setText("");
         txtDescripcion.setText("");
         txtPrecio.setText("");
         txtNota.setText("");
         cmbIVA.setSelectedIndex(0);
-        
+
         //Activamos el flag de registro nuevo
         nuevo = true;
-        
+
         //Damos foco al campo ID
         txtIDProducto.requestFocusInWindow();
-              
+
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -365,48 +375,47 @@ public class frmProductos extends javax.swing.JInternalFrame {
             txtIDProducto.requestFocusInWindow();
             return;
         }
-        
+
         if (txtDescripcion.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Debe digitar una descripción)");
             txtDescripcion.requestFocusInWindow();
             return;
         }
-        
+
         if (txtPrecio.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Debe digitar un precio");
             txtPrecio.requestFocusInWindow();
             return;
         }
-         
-        if (!Utilidades.isNumeric(txtPrecio.getText())){
+
+        if (!Utilidades.isNumeric(txtPrecio.getText())) {
             JOptionPane.showMessageDialog(rootPane, "Debe digitar un precio númerico");
             txtPrecio.requestFocusInWindow();
             return;
-        } 
-        
+        }
+
         int precio = Integer.parseInt(txtPrecio.getText());
-        if (precio <= 0){
+        if (precio <= 0) {
             JOptionPane.showMessageDialog(rootPane, "Debe ingresar un precio mayor a cero");
             txtPrecio.requestFocusInWindow();
             return;
-        } 
-        
+        }
+
         // Si es nuevo validamos que el producto no exista
-        int pos = misDatos.posicionProducto(txtIDProducto.getText());
         if (nuevo) {
-            if ( pos != -1) {
+            if (misDatos2.existeProducto((txtIDProducto.getText()))) {
                 JOptionPane.showMessageDialog(rootPane, "El producto ya existe");
                 txtIDProducto.requestFocusInWindow();
                 return;
             }
-        } else {    
-            if ( pos == -1) {
+        } else {
+            if (!misDatos2.existeProducto((txtIDProducto.getText()))) {
                 JOptionPane.showMessageDialog(rootPane, "El producto no existe");
                 txtIDProducto.requestFocusInWindow();
                 return;
-            }    
+            }
         }
-        
+
         // Creamos el objeto producto y lo agregamos a datos
         Producto miProducto;
         miProducto = new Producto(
@@ -415,16 +424,16 @@ public class frmProductos extends javax.swing.JInternalFrame {
                 precio,
                 cmbIVA.getSelectedIndex(),
                 txtNota.getText());
-        
+
         String msg;
         if (nuevo) {
-            msg = misDatos.agregarProducto(miProducto);  
-        } else{
-             msg = misDatos.modificarProducto(miProducto, pos);  
+            msg = misDatos2.agregarProducto(miProducto);
+        } else {
+            msg = misDatos2.modificarProducto(miProducto);
         }
-  
+
         JOptionPane.showMessageDialog(rootPane, msg);
-        
+
         //Deshabilita botones
         btnPrimero.setEnabled(true);
         btnAnterior.setEnabled(true);
@@ -433,17 +442,17 @@ public class frmProductos extends javax.swing.JInternalFrame {
         btnNuevo.setEnabled(true);
         btnModificar.setEnabled(true);
         btnBorrar.setEnabled(true);
-        btnBuscar.setEnabled(true); 
+        btnBuscar.setEnabled(true);
         btnGuardar.setEnabled(false);
         btnCancelar.setEnabled(false);
-        
+
         //Deshabilita campos
         txtIDProducto.setEditable(false);
         txtDescripcion.setEditable(false);
         txtPrecio.setEditable(false);
         cmbIVA.setEditable(false);
         txtNota.setEditable(false);
-        
+
         //Actualizar cambios en la tabla
         llenarTabla();
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -457,22 +466,22 @@ public class frmProductos extends javax.swing.JInternalFrame {
         btnNuevo.setEnabled(true);
         btnModificar.setEnabled(true);
         btnBorrar.setEnabled(true);
-        btnBuscar.setEnabled(true); 
+        btnBuscar.setEnabled(true);
         btnGuardar.setEnabled(false);
         btnCancelar.setEnabled(false);
-        
+
         //Deshabilita campos
         txtIDProducto.setEditable(false);
         txtDescripcion.setEditable(false);
         txtPrecio.setEditable(false);
         cmbIVA.setEditable(false);
         txtNota.setEditable(false);
-        
+
         mostrarRegistro();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-       //Habilita los botones
+        //Habilita los botones
         btnPrimero.setEnabled(false);
         btnAnterior.setEnabled(false);
         btnSiguiente.setEnabled(false);
@@ -483,23 +492,23 @@ public class frmProductos extends javax.swing.JInternalFrame {
         btnBuscar.setEnabled(false);
         btnGuardar.setEnabled(true);
         btnCancelar.setEnabled(true);
-        
+
         //Habilita campos
         txtDescripcion.setEditable(true);
         txtPrecio.setEditable(true);
         cmbIVA.setEditable(true);
         txtNota.setEditable(true);
-        
+
         //Desactivamos el flag de registro nuevo
         nuevo = false;
-        
+
         //Damos foco al campo ID
         txtDescripcion.requestFocusInWindow();
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        mostrarRegistro();
         llenarTabla();
+        mostrarRegistro();
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void btnPrimeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeroActionPerformed
@@ -508,13 +517,13 @@ public class frmProductos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPrimeroActionPerformed
 
     private void btnUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoActionPerformed
-        proAct = misDatos.numeroProductos() - 1;
+        proAct = misDatos2.numeroProductos() - 1;
         mostrarRegistro();
     }//GEN-LAST:event_btnUltimoActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         proAct++;
-        if (proAct == misDatos.numeroProductos()) {
+        if (proAct == misDatos2.numeroProductos()) {
             proAct = 0;
         }
         mostrarRegistro();
@@ -523,7 +532,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
         proAct--;
         if (proAct == -1) {
-            proAct = misDatos.numeroProductos() - 1;
+            proAct = misDatos2.numeroProductos() - 1;
         }
         mostrarRegistro();
     }//GEN-LAST:event_btnAnteriorActionPerformed
@@ -534,72 +543,102 @@ public class frmProductos extends javax.swing.JInternalFrame {
             return;
         }
         String msg;
-        msg = misDatos.borrarProducto(proAct);
+        msg = misDatos2.borrarProducto(txtIDProducto.getText());
         JOptionPane.showMessageDialog(rootPane, msg);
         proAct = 0;
-        mostrarRegistro();
-        
         //Actualiza cambios en la tabla
         llenarTabla();
+        mostrarRegistro();
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String producto  = JOptionPane.showInputDialog("Ingrese código de producto");
+        String producto = JOptionPane.showInputDialog("Ingrese código de producto");
         if (producto.equals("")) {
             return;
         }
         int pos = misDatos.posicionProducto(producto);
-        if (pos == -1){
+        if (!misDatos2.existeProducto(producto)) {
             JOptionPane.showMessageDialog(rootPane, "Producto no existe");
             return;
         }
-        proAct = pos;
+
+        int num = 0;
+        num = tblTabla.getRowCount();
+        for (int i = 0; i < num; i++) {
+            if (Utilidades.objectToString(tblTabla.getValueAt(i, 0)).equals(producto)) {
+                proAct = i;
+                break;
+            }
+        }
         mostrarRegistro();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void mostrarRegistro(){
-        txtIDProducto.setText(misDatos.getProductos()[proAct].getIdProducto());
-        txtDescripcion.setText(misDatos.getProductos()[proAct].getDescripcion());
-        //Se concatena el precio con "" para convertirlo en cadena
-        txtPrecio.setText("" + misDatos.getProductos()[proAct].getPrecio());
-        cmbIVA.setSelectedIndex(misDatos.getProductos()[proAct].getIva());
-        txtNota.setText(misDatos.getProductos()[proAct].getNota());
+    private void mostrarRegistro() {
+        txtIDProducto.setText(Utilidades.objectToString(tblTabla.getValueAt(proAct, 0)));
+        txtDescripcion.setText(Utilidades.objectToString(tblTabla.getValueAt(proAct, 1)));
+        txtPrecio.setText(Utilidades.objectToString(tblTabla.getValueAt(proAct, 2)));
+        cmbIVA.setSelectedIndex(iva(Utilidades.objectToString(tblTabla.getValueAt(proAct, 3))));
+        txtNota.setText(Utilidades.objectToString(tblTabla.getValueAt(proAct, 4)));
     }
-    
+
     private void llenarTabla() {
-        //´Encabezados de la tabla
-        String titulos[] = { "ID Producto", "Descripción", "Precio", "IVA", "Notas"};
-        //Datos de la tabla
-        String registro[] = new String[5];
-        miTabla = new DefaultTableModel(null, titulos);
-        for (int i = 0; i < misDatos.numeroProductos(); i++) {
-            registro[0] = misDatos.getProductos()[i].getIdProducto();
-            registro[1] = misDatos.getProductos()[i].getDescripcion();
-            //Se concatena el precio con "" para convertirlo en cadena
-            registro[2] = "" + misDatos.getProductos()[i].getPrecio();
-            registro[3] = iva(misDatos.getProductos()[i].getIva());
-            registro[4] = misDatos.getProductos()[i].getNota();
-            miTabla.addRow(registro);
+        try {
+            //´Encabezados de la tabla
+            String titulos[] = {"ID Producto", "Descripción", "Precio", "IVA", "Notas"};
+            //Datos de la tabla
+            String registro[] = new String[5];
+            miTabla = new DefaultTableModel(null, titulos);
+            ResultSet rs = misDatos2.getProductos();
+            while (rs.next()) {
+                registro[0] = rs.getString("idProducto");
+                registro[1] = rs.getString("descripcion");
+                registro[2] = rs.getString("precio");
+                registro[3] = iva(rs.getInt("idIVA"));
+                registro[4] = rs.getString("notas");
+                miTabla.addRow(registro);
+            }
+            tblTabla.setModel(miTabla);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmProductos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        tblTabla.setModel(miTabla);
     }
-    
-    private String iva(int idIVA){
-        switch(idIVA){
-            case 0: return "0%";
-            case 1: return "10%";
-            case 2: return "16%";
-            case 3: return "19%";
-            default: return "No definido";
-        }   
-    
+
+    private String iva(int idIVA) {
+        switch (idIVA) {
+            case 0:
+                return "0%";
+            case 1:
+                return "10%";
+            case 2:
+                return "16%";
+            case 3:
+                return "19%";
+            default:
+                return "No definido";
+        }
+
     }
-    
-    private String perfil(int idPerfil) {
-        if(idPerfil == 1) return "Administrador";
-        else return "Empleado";
+
+    private int iva(String IVA) {
+        if (IVA.equals("0%")) {
+            return 0;
+        } else if (IVA.equals("10%")) {
+            return 1;
+        } else if (IVA.equals("16%")) {
+            return 2;
+        } else {
+            return 3;
+        }
     }
-    
+
+//    private String perfil(int idPerfil) {
+//        if (idPerfil == 1) {
+//            return "Administrador";
+//        } else {
+//            return "Empleado";
+//        }
+//    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnterior;
     private javax.swing.JButton btnBorrar;

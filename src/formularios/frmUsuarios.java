@@ -601,6 +601,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         for (int i = 0; i < num; i++) {
             if(Utilidades.objectToString(tblTabla.getValueAt(i, 0)).equals(usuario)) {
                 usuAct = i;
+                break;
             }
         }
         mostrarRegistro();

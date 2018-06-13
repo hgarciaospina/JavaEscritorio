@@ -74,6 +74,40 @@ public class Datos2 {
             return false; //Si hay algún error retorna false
         }
     }
+    
+    public boolean existeCliente(String cliente) {
+        try {
+            String sql = "select (1) from clientes where idCliente = '"
+                    + cliente + "'";
+            Statement st = cnn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {  //Si existe el cliente retorna true
+                return true;
+            } else {
+                return false; //Sino existe retorna false 
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
+            return false; //Si hay algún error retorna false
+        }
+    }
+    
+    public boolean existeProducto(String producto) {
+        try {
+            String sql = "select (1) from productos where idProducto = '"
+                    + producto + "'";
+            Statement st = cnn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {  //Si existe el producto retorna true
+                return true;
+            } else {
+                return false; //Sino existe retorna false 
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
+            return false; //Si hay algún error retorna false
+        }
+    }
 
     public String agregarUsuario(Usuario miUsuario) {
         try {
@@ -89,6 +123,51 @@ public class Datos2 {
         } catch (SQLException ex) {
             Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
             return "Ocurrio un error al intentar agregar el usuario";
+        }
+    }
+    
+    public String agregarCliente(Cliente miCliente) {
+        try {
+            String sql = "insert into clentes values('"
+                    //Los campos Strings comienza y finaliza con ' simple "', '" 
+                    + miCliente.getIdCliente() + "', "
+                    + miCliente.getIdTipo() + ", '"
+                    + miCliente.getNombres() + "', '"
+                    + miCliente.getApellidos() + "', '"
+                    + miCliente.getDireccion() + "', '"
+                    + miCliente.getTelefono() + "', "
+                    + miCliente.getIdCiudad() + ", '"
+                    + miCliente.getFechaNacimiento() + "', '"
+                    + miCliente.getFechaIngreso() + "')";
+            Statement st = cnn.createStatement();
+            st.executeUpdate(sql);
+            return "Cliente agregado correctamente";
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
+            return "Ocurrio un error al intentar agregar el cliente";
+        }
+    }
+    
+     public String agregarProducto(Producto miProducto) {
+        try {
+            String sql = "insert into productos values('"
+                    + miProducto.getIdProducto() + "', '"
+                    //Se le quita la ' que hay al final de las comillas dobles 
+                    // de getDescricion "', '"  quedando "', " 
+                    //porque el campo que sigue es un entero
+                    + miProducto.getDescripcion() + "', "
+                    //y se le quita la ' que hay al principio de las comillas dobles 
+                    // de "', '" de getPrecio quedando ", '" 
+                    + miProducto.getPrecio() + ", "
+                    //Igual se hace con IVA
+                    + miProducto.getIva() + ", '"
+                    + miProducto.getNota() + "')";
+            Statement st = cnn.createStatement();
+            st.executeUpdate(sql);
+            return "Producto agregado correctamente";
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
+            return "Ocurrio un error al intentar agregar el producto" + ex;
         }
     }
 
@@ -108,6 +187,44 @@ public class Datos2 {
             return "Ocurrio un error al intentar modificar el usuario";
         }
     }
+    
+    public String modificarCliente(Cliente miCliente) {
+        try {
+            String sql = "update clientes set "
+                    + "idTipo = " + miCliente.getIdTipo() + ", "
+                    + "nombres = '" + miCliente.getNombres() + "', "
+                    + "apellidos = '" + miCliente.getApellidos() + "', "
+                    + "direccion = '" + miCliente.getDireccion() + "', "
+                    + "telefono = " + miCliente.getTelefono() + "', "
+                    + "idCiudad = " + miCliente.getIdCiudad() + "', "
+                    + "fechaNacimiento = '" + miCliente.getFechaNacimiento() + "', "
+                    + "fechaIngreso = '" + miCliente.getFechaIngreso() + "', "
+                    + "where idCliente = '" + miCliente.getIdCliente() + "'";
+            Statement st = cnn.createStatement();
+            st.executeUpdate(sql);
+            return "Cliente modificado correctamente";
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
+            return "Ocurrio un error al intentar modificar el cliente";
+        }
+    }
+    
+    public String modificarProducto(Producto miProducto) {
+        try {
+            String sql = "update productos set "
+                    + "descripcion = '" + miProducto.getDescripcion() + "', "
+                    + "precio = " + miProducto.getPrecio() + ", "
+                    + "idIVA = " + miProducto.getIva() + ", "
+                    + "notas = '" + miProducto.getNota()+ "' "
+                    + "where idProducto = '" + miProducto.getIdProducto() + "'";
+            Statement st = cnn.createStatement();
+            st.executeUpdate(sql);
+            return "Producto modificado correctamente";
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
+            return "Ocurrio un error al intentar modificar el producto";
+        }
+    }
 
     public String borrarUsuario(String usuario) {
         try {
@@ -118,6 +235,30 @@ public class Datos2 {
         } catch (SQLException ex) {
             Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
             return "Ocurrio un error al intentar eliminar el usuario";
+        }
+    }
+    
+    public String borrarCliente(String cliente) {
+        try {
+            String sql = "delete from clientes where idCliente='" + cliente + "'";
+            Statement st = cnn.createStatement();
+            st.executeUpdate(sql);
+            return "Cliente eliminado correctamente";
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
+            return "Ocurrio un error al intentar eliminar el cliente";
+        }
+    }
+    
+     public String borrarProducto(String producto) {
+        try {
+            String sql = "delete from productos where idProducto='" + producto + "'";
+            Statement st = cnn.createStatement();
+            st.executeUpdate(sql);
+            return "Producto eliminado correctamente";
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
+            return "Ocurrio un error al intentar eliminar el producto";
         }
     }
 
@@ -131,10 +272,66 @@ public class Datos2 {
             return null;
         }
     }
+    
+     public ResultSet getClientes() {
+        try {
+            String sql = "Select * from clientes order by apellidos";
+            Statement st = cnn.createStatement();
+            return st.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+     
+     public ResultSet getProductos() {
+        try {
+            String sql = "Select * from productos order by descripcion";
+            Statement st = cnn.createStatement();
+            return st.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    } 
 
     public int numeroUsuarios() {
         try {
             String sql = "Select count(*) as num from usuarios";
+            Statement st = cnn.createStatement();
+            //Se usa ResultSet cuando se retornan datos
+            ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {
+                return rs.getInt("num");
+            } else {
+                return 0;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+    }
+    
+    public int numeroClientes() {
+        try {
+            String sql = "Select count(*) as num from clientes";
+            Statement st = cnn.createStatement();
+            //Se usa ResultSet cuando se retornan datos
+            ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {
+                return rs.getInt("num");
+            } else {
+                return 0;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+    }
+    
+    public int numeroProductos() {
+        try {
+            String sql = "Select count(*) as num from productos";
             Statement st = cnn.createStatement();
             //Se usa ResultSet cuando se retornan datos
             ResultSet rs = st.executeQuery(sql);
