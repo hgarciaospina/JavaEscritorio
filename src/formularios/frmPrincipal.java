@@ -219,7 +219,6 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void mnuArchivoProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoProductosActionPerformed
         frmProductos misProductos = new frmProductos();
-        misProductos.setDatos(misDatos);
         misProductos.setDatos2(misDatos2);
         dpnEscritorio.add(misProductos);
         misProductos.show();
@@ -228,6 +227,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void mnuArchivoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoClientesActionPerformed
         frmClientes misClientes = new frmClientes();
         misClientes.setDatos(misDatos);
+        misClientes.setDatos2(misDatos2);
         dpnEscritorio.add(misClientes);
         misClientes.show();
     }//GEN-LAST:event_mnuArchivoClientesActionPerformed

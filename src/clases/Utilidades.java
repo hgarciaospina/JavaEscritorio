@@ -17,7 +17,7 @@ public class Utilidades {
   
   public static Date stringToDate(String fecha){
     SimpleDateFormat formatoDelTexto;
-    formatoDelTexto = new SimpleDateFormat("dd/mm/yyyy");
+    formatoDelTexto = new SimpleDateFormat("yyyy/mm/dd");
     Date aux = null;
     try {
         aux = formatoDelTexto.parse(fecha);
@@ -27,8 +27,9 @@ public class Utilidades {
    }
 
    public static String formatDate(Date fecha){
+       if(fecha == null) fecha = new Date();
        SimpleDateFormat formatoDelTexto;
-       formatoDelTexto = new SimpleDateFormat("dd/mm/yyyy");
+       formatoDelTexto = new SimpleDateFormat("yyyy/mm/dd");
        return formatoDelTexto.format(fecha);
    }
    
@@ -56,5 +57,15 @@ public class Utilidades {
         }
         return Str;
     }
+    
+    public static Date objectToDate(Object obj){
+       SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-mm-dd");
+       Date aux = null;
+       try {
+           aux = formatoDelTexto.parse(objectToString(obj));
+       } catch (Exception ex) { 
+       }
+       return aux;
+   }
 }  
     

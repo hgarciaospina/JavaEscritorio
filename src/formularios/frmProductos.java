@@ -17,15 +17,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmProductos extends javax.swing.JInternalFrame {
 
-    private Datos misDatos;
     private Datos2 misDatos2;
     private int proAct = 0;
     private boolean nuevo = false;
     private DefaultTableModel miTabla;
-
-    public void setDatos(Datos misDatos) {
-        this.misDatos = misDatos;
-    }
 
     public void setDatos2(Datos2 misDatos2) {
         this.misDatos2 = misDatos2;
@@ -350,7 +345,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
         txtIDProducto.setEditable(true);
         txtDescripcion.setEditable(true);
         txtPrecio.setEditable(true);
-        txtNota.setEnabled(true);
+        txtNota.setEditable(true);
         cmbIVA.setEditable(true);
 
         //Limpiar campos
@@ -556,7 +551,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
         if (producto.equals("")) {
             return;
         }
-        int pos = misDatos.posicionProducto(producto);
+    
         if (!misDatos2.existeProducto(producto)) {
             JOptionPane.showMessageDialog(rootPane, "Producto no existe");
             return;
@@ -631,13 +626,6 @@ public class frmProductos extends javax.swing.JInternalFrame {
         }
     }
 
-//    private String perfil(int idPerfil) {
-//        if (idPerfil == 1) {
-//            return "Administrador";
-//        } else {
-//            return "Empleado";
-//        }
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnterior;

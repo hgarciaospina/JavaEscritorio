@@ -112,7 +112,6 @@ public class frmFactura extends javax.swing.JInternalFrame {
 
         lblFecha1.setText("Cantidad:");
 
-        btnEliminar.setIcon(new javax.swing.ImageIcon("D:\\JavaEscritorio - Tutorial#2\\JavaEscritorio\\src\\images\\elimnar.png")); // NOI18N
         btnEliminar.setToolTipText("Elimina producto de la factura");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,11 +158,11 @@ public class frmFactura extends javax.swing.JInternalFrame {
 
         lblTotales.setText("Totales:");
 
+        txtTotalCantidad.setEditable(false);
         txtTotalCantidad.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtTotalCantidad.setEnabled(false);
 
+        txtTotalValor.setEditable(false);
         txtTotalValor.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtTotalValor.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -128,7 +128,7 @@ public class Datos2 {
     
     public String agregarCliente(Cliente miCliente) {
         try {
-            String sql = "insert into clentes values('"
+            String sql = "insert into clientes values('"
                     //Los campos Strings comienza y finaliza con ' simple "', '" 
                     + miCliente.getIdCliente() + "', "
                     + miCliente.getIdTipo() + ", '"
@@ -137,8 +137,8 @@ public class Datos2 {
                     + miCliente.getDireccion() + "', '"
                     + miCliente.getTelefono() + "', "
                     + miCliente.getIdCiudad() + ", '"
-                    + miCliente.getFechaNacimiento() + "', '"
-                    + miCliente.getFechaIngreso() + "')";
+                    + Utilidades.formatDate(miCliente.getFechaNacimiento()) + "', '"
+                    + Utilidades.formatDate(miCliente.getFechaIngreso()) + "')";
             Statement st = cnn.createStatement();
             st.executeUpdate(sql);
             return "Cliente agregado correctamente";
@@ -195,10 +195,10 @@ public class Datos2 {
                     + "nombres = '" + miCliente.getNombres() + "', "
                     + "apellidos = '" + miCliente.getApellidos() + "', "
                     + "direccion = '" + miCliente.getDireccion() + "', "
-                    + "telefono = " + miCliente.getTelefono() + "', "
-                    + "idCiudad = " + miCliente.getIdCiudad() + "', "
-                    + "fechaNacimiento = '" + miCliente.getFechaNacimiento() + "', "
-                    + "fechaIngreso = '" + miCliente.getFechaIngreso() + "', "
+                    + "telefono = '" + miCliente.getTelefono() + "', "
+                    + "idCiudad = " + miCliente.getIdCiudad() + ", "
+                    + "fechaNacimiento = '" + Utilidades.formatDate(miCliente.getFechaNacimiento()) + "', "
+                    + "fechaIngreso = '" + Utilidades.formatDate(miCliente.getFechaIngreso()) + "' "
                     + "where idCliente = '" + miCliente.getIdCliente() + "'";
             Statement st = cnn.createStatement();
             st.executeUpdate(sql);

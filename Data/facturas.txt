@@ -13,3 +13,6 @@
 2|2|Pan de leche|2500|10|25000|
 2|5|Queso Holandes x 500 grs|8500|2|17000|
 2|1|Coca Cola x 350 ML|1500|4|6000|
+1|5|1|Diana Sierra Gómez|13/21/2018
+2|1|Coca Cola x 350 ML|1500|5|7500|
+2|6|Pollo campesino x 1000 grs|12000|2|24000|
