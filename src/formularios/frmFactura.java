@@ -8,10 +8,8 @@ package formularios;
 import clases.Datos;
 import clases.Datos2;
 import clases.Opcion;
+import clases.Producto;
 import clases.Utilidades;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -252,7 +250,7 @@ public class frmFactura extends javax.swing.JInternalFrame {
                     .addComponent(btnEliminarTodo)
                     .addComponent(btnGrabar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(txtTotalValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -334,17 +332,18 @@ public class frmFactura extends javax.swing.JInternalFrame {
         } 
         
         //Buscamos los datos del producto seleccionado
-        int pos = misDatos.posicionProducto(((Opcion)cmbProducto.getSelectedItem()).getValor());
+        Producto miProducto = 
+                misDatos2.getProducto(((Opcion)cmbProducto.getSelectedItem()).getValor());
         
         //Adicionamos el producto a la tabla
         String registro[] = new String[5];
-        registro[0] = misDatos.getProductos()[pos].getIdProducto();
-        registro[1] = misDatos.getProductos()[pos].getDescripcion();
+        registro[0] = miProducto.getIdProducto();
+        registro[1] = miProducto.getDescripcion();
         //El precio es númerico lo concatenamos con ""  para converirlo a string
-        registro[2] = "" + misDatos.getProductos()[pos].getPrecio();
+        registro[2] = "" + miProducto.getPrecio();
         registro[3] = "" + cantidad;
         //Calculamos el valor de la compra que es igual a la cantidad * precio del producto
-        registro[4] = "" + (cantidad * misDatos.getProductos()[pos].getPrecio());
+        registro[4] = "" + (cantidad * miProducto.getPrecio());
         miTabla.addRow(registro);
         
         //Inicializamos campos
@@ -382,56 +381,28 @@ public class frmFactura extends javax.swing.JInternalFrame {
         }
         
         //Adicionamos un consecutivo a la factura
-        int numFac = misDatos.getNumFac() + 1;
+        int numFac = misDatos2.getNumFac();
         
-        //Grabamos la factura
-        FileWriter fw = null;
-        PrintWriter pw = null;
-        try {
-             /*true permite que se adicionen registros,
-              de lo contrario borraria los datos anteriores
-             */
-              fw = new FileWriter("Data/facturas.txt", true);
-              pw = new PrintWriter(fw);
-         
-              //Encabezado de factura
-              String aux = "";
-                     aux = "1|"  //Registro tipo 1 : Encabezado factura
-                      + numFac + "|" //número de factura
-                      + ((Opcion)
-                          cmbCliente.getSelectedItem()).getValor() + "|"//código del cliente
-                      + ((Opcion)
-                          cmbCliente.getSelectedItem()).getDescripcion() + "|"//nombre del cliente
-                      + txtFecha.getText();//fecha de la factura 
-              pw.println(aux); //grabamos el registro
+        //Encabezado de factura
+        misDatos2.agregarFactura(
+            numFac,
+            ((Opcion) cmbCliente.getSelectedItem()).getValor(),
+            new Date());
               
-              //Detalle de factura
-              int num = 0;
-              num = tblDetalle.getRowCount();
-              for (int i = 0; i < num; i++) {
-                   aux = "2|"  //Registro tipo 2 : Detalle factura
-                           + Utilidades.objectToString(tblDetalle.getValueAt(i, 0)) + "|"
-                           + Utilidades.objectToString(tblDetalle.getValueAt(i, 1)) + "|"
-                           + Utilidades.objectToString(tblDetalle.getValueAt(i, 2)) + "|"
-                           + Utilidades.objectToString(tblDetalle.getValueAt(i, 3)) + "|"
-                           + Utilidades.objectToString(tblDetalle.getValueAt(i, 4)) + "|"; //Código del producto 
-                   pw.println(aux); //grabamos el registro
-              } 
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        } finally {
-            try {
-                if (fw != null) {
-                    fw.close();
-                }
-            } catch (IOException e2) {
-                e2.printStackTrace();
-            }
-        }
-        
+        //Detalle de factura
+        int num = 0;
+        num = tblDetalle.getRowCount();
+        for (int i = 0; i < num; i++) {
+            misDatos2.agregarDetalleFactura(
+                    numFac, 
+                    i+1,
+                    Utilidades.objectToString(tblDetalle.getValueAt(i, 0)),
+                    Utilidades.objectToString(tblDetalle.getValueAt(i, 1)),
+                    Utilidades.objectToInt(tblDetalle.getValueAt(i, 2)),
+                    Utilidades.objectToInt(tblDetalle.getValueAt(i, 3)));
+        } 
         JOptionPane.showMessageDialog(rootPane, 
-                    "Factura: " + numFac + " generada con éxito");
-        misDatos.setNumFac(numFac);
+              "Factura: " + numFac + " generada con éxito");
         
         //Inicializamos campos
         cmbCliente.setSelectedIndex(0);

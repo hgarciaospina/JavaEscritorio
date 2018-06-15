@@ -5,8 +5,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class Datos2 {
 
@@ -294,7 +296,29 @@ public class Datos2 {
             return null;
         }
     } 
-
+     
+    public Producto getProducto(String idProducto){
+        try {
+            Producto miProducto = null;
+            String sql = "select * from productos "
+                    + "where idProducto = '" + idProducto + "'";
+            Statement st = cnn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {
+                miProducto = new Producto(
+                        rs.getString("idProducto"),
+                        rs.getString("descripcion"),
+                        rs.getInt("precio"),
+                        rs.getInt("idIva"),
+                        rs.getString("notas"));
+            }
+            return miProducto;
+        } catch (SQLException ex){
+            Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } 
+    }
+    
     public int numeroUsuarios() {
         try {
             String sql = "Select count(*) as num from usuarios";
@@ -345,4 +369,53 @@ public class Datos2 {
             return 0;
         }
     }
+    
+    public int getNumFac(){
+        try {
+            String sql = "select max(idFactura) as num from factura";
+            Statement st = cnn.createStatement();
+            //Se usa ResultSet cuando se retornan datos
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()) {
+                return rs.getInt("num") + 1;
+            } else {
+               return 1;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
+            return 1;
+        }
+    }
+    
+    public void agregarFactura(int idFactura, String idCliente, Date fecha) {
+        try {
+            String sql = "insert into factura values("
+                    + idFactura + ", '"
+                    + idCliente + "', '"
+                    + Utilidades.formatDate(fecha) + "')";
+            Statement st = cnn.createStatement();
+            st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.print(ex);
+        }
+    } 
+    
+    public void agregarDetalleFactura(int idFactura, int idLinea, 
+            String idProducto, String descripcion, int precio, int cantidad) {
+        try {
+            String sql = "insert into detalleFactura values("
+                    + idFactura + ", "
+                    + idLinea + ", '"
+                    + idProducto + "', '"
+                    + descripcion + "', "
+                    + precio + ", "
+                    + cantidad + ")";
+            Statement st = cnn.createStatement();
+            st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.print(ex);
+        }
+    } 
 }

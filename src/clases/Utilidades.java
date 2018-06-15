@@ -17,7 +17,7 @@ public class Utilidades {
   
   public static Date stringToDate(String fecha){
     SimpleDateFormat formatoDelTexto;
-    formatoDelTexto = new SimpleDateFormat("yyyy/mm/dd");
+    formatoDelTexto = new SimpleDateFormat("yyyy/MM/dd");
     Date aux = null;
     try {
         aux = formatoDelTexto.parse(fecha);
@@ -29,10 +29,10 @@ public class Utilidades {
    public static String formatDate(Date fecha){
        if(fecha == null) fecha = new Date();
        SimpleDateFormat formatoDelTexto;
-       formatoDelTexto = new SimpleDateFormat("yyyy/mm/dd");
+       formatoDelTexto = new SimpleDateFormat("yyy/MM/dd");
        return formatoDelTexto.format(fecha);
    }
-   
+ 
    public static int objectToInt(Object Obj) {
         int NumInt = Integer.parseInt(objectToString(Obj));
         return NumInt;
@@ -40,13 +40,14 @@ public class Utilidades {
 
     public static double objectToDouble(Object Obj) {
         String Str = Obj.toString();
-        double NumDouble = Double.valueOf(Str).doubleValue();
+        double NumDouble = Double.parseDouble(Str);
         return NumDouble;
     }
 
     public static boolean objectToBoolean(Object Obj) {
         String CadBooleana = objectToString(Obj);
-        Boolean booleano = new Boolean(CadBooleana);
+        Boolean booleano;
+      booleano = new Boolean(CadBooleana);
         return booleano;
     }
 
@@ -59,7 +60,7 @@ public class Utilidades {
     }
     
     public static Date objectToDate(Object obj){
-       SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-mm-dd");
+       SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
        Date aux = null;
        try {
            aux = formatoDelTexto.parse(objectToString(obj));
