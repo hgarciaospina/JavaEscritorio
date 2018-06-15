@@ -17,10 +17,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     private Datos misDatos;
     private Datos2 misDatos2;
     
-    public void setDatos(Datos misDatos){
-        this.misDatos = misDatos;
-    }
-    
      public void setDatos2(Datos2 misDatos2){
         this.misDatos2 = misDatos2;
     }
@@ -226,7 +222,6 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void mnuArchivoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoClientesActionPerformed
         frmClientes misClientes = new frmClientes();
-        misClientes.setDatos(misDatos);
         misClientes.setDatos2(misDatos2);
         dpnEscritorio.add(misClientes);
         misClientes.show();
@@ -271,6 +266,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void mnuMovimientosNuevaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMovimientosNuevaFacturaActionPerformed
         frmFactura miFactura = new frmFactura(); 
         miFactura.setDatos(misDatos);
+        miFactura.setDatos2(misDatos2);
         dpnEscritorio.add(miFactura);
         miFactura.show();
     }//GEN-LAST:event_mnuMovimientosNuevaFacturaActionPerformed

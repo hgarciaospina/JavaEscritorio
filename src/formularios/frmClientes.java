@@ -1,7 +1,6 @@
 package formularios;
 
 import clases.Cliente;
-import clases.Datos;
 import clases.Datos2;
 import clases.Utilidades;
 import java.sql.ResultSet;
@@ -18,15 +17,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmClientes extends javax.swing.JInternalFrame {
 
-    private Datos misDatos;
     private Datos2 misDatos2;
     private int cliAct = 0;
     private boolean nuevo = false;
     private DefaultTableModel miTabla;
-
-    public void setDatos(Datos misDatos) {
-        this.misDatos = misDatos;
-    }
 
     public void setDatos2(Datos2 misDatos2) {
         this.misDatos2 = misDatos2;

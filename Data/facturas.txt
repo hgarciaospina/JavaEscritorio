@@ -16,3 +16,15 @@
 1|5|1|Diana Sierra Gómez|13/21/2018
 2|1|Coca Cola x 350 ML|1500|5|7500|
 2|6|Pollo campesino x 1000 grs|12000|2|24000|
+1|6|1|Diana Sierra Gómez|2018/12/14
+2|1|Coca Cola x 350 ML|1500|5|7500|
+2|4|Hamburguesas|2500|3|7500|
+1|7|9|Soyla Pérez|2018/18/14
+2|3|Salchichon Cervecero x 500 grs|6900|3|20700|
+2|6|Pollo campesino x 1000 grs|12000|1|12000|
+1|8|8|Sandra López|2018/18/14
+2|4|Hamburguesas|2500|2|5000|
+2|7|Papas Margarita x 200 grs|1900|3|5700|
+1|6|3|Pepito Pepón Linares|2018/25/14
+2|3|Salchichon Cervecero x 500 grs|6900|2|13800|
+2|4|Hamburguesas|2500|3|7500|

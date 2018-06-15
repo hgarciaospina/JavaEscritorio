@@ -121,7 +121,6 @@ public class frmLogin extends javax.swing.JFrame {
         
         frmPrincipal miPrincipal = new frmPrincipal();
         this.setVisible(false);
-        miPrincipal.setDatos(misDatos);
         miPrincipal.setDatos2(misDatos2);
         miPrincipal.setPerfil(misDatos2.getPerfil(txtUsuario.getText()));
         miPrincipal.setClave(new String(txtClave.getPassword()));

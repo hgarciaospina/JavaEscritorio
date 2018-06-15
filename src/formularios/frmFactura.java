@@ -6,12 +6,17 @@
 package formularios;
 
 import clases.Datos;
+import clases.Datos2;
 import clases.Opcion;
 import clases.Utilidades;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -24,10 +29,15 @@ import javax.swing.table.DefaultTableModel;
 public class frmFactura extends javax.swing.JInternalFrame {
 
     private Datos misDatos;
+    private Datos2 misDatos2;
     private DefaultTableModel miTabla;
     
     public void setDatos(Datos misDatos){
         this.misDatos = misDatos;
+    }
+    
+    public void setDatos2(Datos2 misDatos2){
+        this.misDatos2 = misDatos2;
     }
     
     public frmFactura() {
@@ -257,34 +267,40 @@ public class frmFactura extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        //Cargamos clientes
-        Opcion opc = new Opcion("NA", "Seleccione un cliente...");
-        cmbCliente.addItem(opc);
-        for (int i = 0; i < misDatos.numeroClientes(); i++) {
-            opc = new Opcion(
-                    misDatos.getClientes()[i].getIdCliente(),
-                    misDatos.getClientes()[i].getNombres() + " "
-                    + misDatos.getClientes()[i].getApellidos());
-                    cmbCliente.addItem(opc);
+        try {
+            //Cargamos clientes en el combobox desde la base de datos
+            Opcion opc = new Opcion("NA", "Seleccione un cliente...");
+            cmbCliente.addItem(opc);
+            ResultSet rsCli = misDatos2.getClientes();
+            while(rsCli.next()){
+                opc = new Opcion(
+                        rsCli.getString("idCliente"),
+                        rsCli.getString("nombres") + " "
+                        + rsCli.getString("apellidos"));
+                cmbCliente.addItem(opc);
+            }
+            
+            //Cargamos productos en el combobox desde la base de datos
+            opc = new Opcion("NA", "Seleccione un producto...");
+            cmbProducto.addItem(opc);
+            ResultSet rsPro = misDatos2.getProductos();
+            while(rsPro.next()){
+                opc = new Opcion(
+                        rsPro.getString("idProducto"),
+                        rsPro.getString("descripcion"));
+                cmbProducto.addItem(opc);
+            }
+            
+            //Cargamos la fecha del sistema
+            txtFecha.setText(Utilidades.formatDate(new Date()));
+            //Mostramos totales en ceros
+            txtTotalCantidad.setText("0");
+            txtTotalValor.setText("0");
+            //Formateamos la tabla
+            llenarTabla();
+        } catch (SQLException ex) {
+            Logger.getLogger(frmFactura.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        //Cargamos productos
-        opc = new Opcion("NA", "Seleccione un producto...");
-        cmbProducto.addItem(opc);
-        for (int i = 0; i < misDatos.numeroProductos(); i++) {
-            opc = new Opcion(
-                    misDatos.getProductos()[i].getIdProducto(),
-                    misDatos.getProductos()[i].getDescripcion());
-                    cmbProducto.addItem(opc);
-        }
-        
-        //Cargamos la fecha del sistema
-        txtFecha.setText(Utilidades.formatDate(new Date()));
-        //Mostramos totales en ceros
-        txtTotalCantidad.setText("0");
-        txtTotalValor.setText("0");
-        //Formateamos la tabla
-        llenarTabla();
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed

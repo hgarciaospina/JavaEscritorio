@@ -1,6 +1,5 @@
 package formularios;
 
-import clases.Datos;
 import clases.Datos2;
 import clases.Producto;
 import clases.Utilidades;
@@ -9,6 +8,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -207,7 +208,6 @@ public class frmProductos extends javax.swing.JInternalFrame {
 
         txtNota.setColumns(20);
         txtNota.setRows(5);
-        txtNota.setEnabled(false);
         jScrollPane2.setViewportView(txtNota);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -346,8 +346,9 @@ public class frmProductos extends javax.swing.JInternalFrame {
         txtDescripcion.setEditable(true);
         txtPrecio.setEditable(true);
         txtNota.setEditable(true);
+        txtNota.setEnabled(true);
         cmbIVA.setEditable(true);
-
+        
         //Limpiar campos
         txtIDProducto.setText("");
         txtDescripcion.setText("");
@@ -593,6 +594,14 @@ public class frmProductos extends javax.swing.JInternalFrame {
                 miTabla.addRow(registro);
             }
             tblTabla.setModel(miTabla);
+               
+            //Alinear campos númericos ala derecha
+            DefaultTableCellRenderer tcr = new   DefaultTableCellRenderer();
+            tcr.setHorizontalAlignment(SwingConstants.RIGHT);
+            tblTabla.getColumnModel().getColumn(2).setCellRenderer(tcr);
+            tblTabla.getColumnModel().getColumn(3).setCellRenderer(tcr);
+            
+            
         } catch (SQLException ex) {
             Logger.getLogger(frmProductos.class.getName()).log(Level.SEVERE, null, ex);
         }
