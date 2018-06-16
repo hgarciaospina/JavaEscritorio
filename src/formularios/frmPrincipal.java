@@ -243,7 +243,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void mnuArchivoCambioUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoCambioUsuarioActionPerformed
         this.setVisible(false);
         frmLogin miLogin = new frmLogin();
-        miLogin.setDatos(misDatos);
+        miLogin.setDatos2(misDatos2);
         miLogin.setLocationRelativeTo(null);
         miLogin.setVisible(true);
     }//GEN-LAST:event_mnuArchivoCambioUsuarioActionPerformed
@@ -252,7 +252,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         frmCambioClave miCambio = new frmCambioClave(this, rootPaneCheckingEnabled);
         miCambio.setClave(clave);
         miCambio.setUsuario(usuario);
-        miCambio.setDatos(misDatos);
         miCambio.setDatos2(misDatos2);
         miCambio.setLocationRelativeTo(this);
         miCambio.setVisible(rootPaneCheckingEnabled);
