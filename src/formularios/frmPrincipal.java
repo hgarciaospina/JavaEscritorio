@@ -253,6 +253,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         miCambio.setClave(clave);
         miCambio.setUsuario(usuario);
         miCambio.setDatos(misDatos);
+        miCambio.setDatos2(misDatos2);
         miCambio.setLocationRelativeTo(this);
         miCambio.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_mnuArchivoCambioClaveActionPerformed

@@ -428,4 +428,17 @@ public class Datos2 {
             System.out.print(ex);
         }
     } 
+    
+     public void cambiarClave(String usuario, String clave) {
+        try {
+            String sql = "update usuarios set "
+                 + "clave = '" + clave + "' "   
+                 + "where idUsuario = '" + usuario + "'";
+            Statement st = cnn.createStatement();
+            st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
