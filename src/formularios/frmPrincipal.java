@@ -1,7 +1,6 @@
 package formularios;
 
 import clases.Datos;
-import clases.Datos2;
 import clases.DesktopConFondo;
 
 /**
@@ -15,10 +14,9 @@ public class frmPrincipal extends javax.swing.JFrame {
     private String clave;
     private String usuario;
     private Datos misDatos;
-    private Datos2 misDatos2;
     
-     public void setDatos2(Datos2 misDatos2){
-        this.misDatos2 = misDatos2;
+     public void setDatos(Datos misDatos){
+        this.misDatos = misDatos;
     }
     
     public void setPerfil(int perfil) {
@@ -203,7 +201,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void mnuArchivoUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoUsuariosActionPerformed
         frmUsuarios misUsuarios = new frmUsuarios();
-        misUsuarios.setDatos2(misDatos2);
+        misUsuarios.setDatos(misDatos);
         dpnEscritorio.add(misUsuarios);
         misUsuarios.show();
     }//GEN-LAST:event_mnuArchivoUsuariosActionPerformed
@@ -215,14 +213,14 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void mnuArchivoProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoProductosActionPerformed
         frmProductos misProductos = new frmProductos();
-        misProductos.setDatos2(misDatos2);
+        misProductos.setDatos(misDatos);
         dpnEscritorio.add(misProductos);
         misProductos.show();
     }//GEN-LAST:event_mnuArchivoProductosActionPerformed
 
     private void mnuArchivoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoClientesActionPerformed
         frmClientes misClientes = new frmClientes();
-        misClientes.setDatos2(misDatos2);
+        misClientes.setDatos(misDatos);
         dpnEscritorio.add(misClientes);
         misClientes.show();
     }//GEN-LAST:event_mnuArchivoClientesActionPerformed
@@ -243,7 +241,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void mnuArchivoCambioUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoCambioUsuarioActionPerformed
         this.setVisible(false);
         frmLogin miLogin = new frmLogin();
-        miLogin.setDatos2(misDatos2);
+        miLogin.setDatos(misDatos);
         miLogin.setLocationRelativeTo(null);
         miLogin.setVisible(true);
     }//GEN-LAST:event_mnuArchivoCambioUsuarioActionPerformed
@@ -252,7 +250,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         frmCambioClave miCambio = new frmCambioClave(this, rootPaneCheckingEnabled);
         miCambio.setClave(clave);
         miCambio.setUsuario(usuario);
-        miCambio.setDatos2(misDatos2);
+        miCambio.setDatos(misDatos);
         miCambio.setLocationRelativeTo(this);
         miCambio.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_mnuArchivoCambioClaveActionPerformed
@@ -265,7 +263,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void mnuMovimientosNuevaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMovimientosNuevaFacturaActionPerformed
         frmFactura miFactura = new frmFactura(); 
-        miFactura.setDatos2(misDatos2);
+        miFactura.setDatos(misDatos);
         dpnEscritorio.add(miFactura);
         miFactura.show();
     }//GEN-LAST:event_mnuMovimientosNuevaFacturaActionPerformed

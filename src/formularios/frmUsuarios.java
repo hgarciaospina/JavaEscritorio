@@ -5,7 +5,7 @@
  */
 package formularios;
 
-import clases.Datos2;
+import clases.Datos;
 import clases.Usuario;
 import clases.Utilidades;
 import java.sql.ResultSet;
@@ -21,13 +21,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmUsuarios extends javax.swing.JInternalFrame {
 
-    private Datos2 misDatos2;
+    private Datos misDatos;
     private int usuAct = 0;
     private boolean nuevo = false;
     private DefaultTableModel miTabla;
        
-    public void setDatos2(Datos2 misDatos2){
-        this.misDatos2 = misDatos2;
+    public void setDatos(Datos misDatos){
+        this.misDatos = misDatos;
     }
     public frmUsuarios() {
        //initComponentes pone a false los setEditable --> setEditable(false) 
@@ -427,13 +427,13 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         
         // Si es nuevo validamos que el usuario no exista
         if (nuevo) {
-            if (misDatos2.existeUsuario(txtIDUsuario.getText())) {
+            if (misDatos.existeUsuario(txtIDUsuario.getText())) {
                 JOptionPane.showMessageDialog(rootPane, "El usuario ya existe");
                 txtIDUsuario.requestFocusInWindow();
                 return;
             }
         } else {    
-            if (!misDatos2.existeUsuario(txtIDUsuario.getText())) {
+            if (!misDatos.existeUsuario(txtIDUsuario.getText())) {
                 JOptionPane.showMessageDialog(rootPane, "El usuario no existe");
                 txtIDUsuario.requestFocusInWindow();
                 return;
@@ -450,9 +450,9 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         
         String msg;
         if (nuevo) {
-            msg = misDatos2.agregarUsuario(miUsuario);
+            msg = misDatos.agregarUsuario(miUsuario);
         } else{
-             msg = misDatos2.modificarUsuario(miUsuario);  
+             msg = misDatos.modificarUsuario(miUsuario);  
         }
   
         JOptionPane.showMessageDialog(rootPane, msg);
@@ -551,13 +551,13 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPrimeroActionPerformed
 
     private void btnUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoActionPerformed
-        usuAct = misDatos2.numeroUsuarios() - 1;
+        usuAct = misDatos.numeroUsuarios() - 1;
         mostrarRegistro();
     }//GEN-LAST:event_btnUltimoActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         usuAct++;
-        if (usuAct == misDatos2.numeroUsuarios()) {
+        if (usuAct == misDatos.numeroUsuarios()) {
             usuAct = 0;
         }
         mostrarRegistro();
@@ -566,7 +566,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
         usuAct--;
         if (usuAct == -1) {
-            usuAct = misDatos2.numeroUsuarios() - 1;
+            usuAct = misDatos.numeroUsuarios() - 1;
         }
         mostrarRegistro();
     }//GEN-LAST:event_btnAnteriorActionPerformed
@@ -577,7 +577,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
             return;
         }
         String msg;
-        msg = misDatos2.borrarUsuario(txtIDUsuario.getText());
+        msg = misDatos.borrarUsuario(txtIDUsuario.getText());
         JOptionPane.showMessageDialog(rootPane, msg);
         usuAct = 0;
         mostrarRegistro();
@@ -591,7 +591,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         if (usuario.equals("")) {
             return;
         }
-        if (!misDatos2.existeUsuario(usuario)){
+        if (!misDatos.existeUsuario(usuario)){
             JOptionPane.showMessageDialog(rootPane, "Usuario no existe");
             return;
         }
@@ -623,7 +623,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
             //Datos de la tabla
             String registro[] = new String[5];
             miTabla = new DefaultTableModel(null, titulos);
-            ResultSet rs = misDatos2.getUsuarios();
+            ResultSet rs = misDatos.getUsuarios();
             while (rs.next()) {
                 registro[0] = rs.getString("idUsuario");
                 registro[1] = rs.getString("nombres");

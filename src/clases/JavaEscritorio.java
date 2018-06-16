@@ -16,12 +16,10 @@ public class JavaEscritorio {
     public static void main(String[] args) throws SQLException {
         // Creo el objeto datos
         Datos misDatos = new Datos();
-        Datos2 misDatos2 = new Datos2();
         
         // Llamamos el formulario de login
         frmLogin miLogin = new frmLogin();
         miLogin.setDatos(misDatos);
-        miLogin.setDatos2(misDatos2);
         miLogin.setLocationRelativeTo(null);
         miLogin.setVisible(true);
     }

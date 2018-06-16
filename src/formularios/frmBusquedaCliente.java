@@ -1,7 +1,7 @@
 
 package formularios;
 
-import clases.Datos2;
+import clases.Datos;
 import clases.Utilidades;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,12 +15,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmBusquedaCliente extends javax.swing.JDialog {
 
-    private Datos2 misDatos2;
+    private Datos misDatos;
     private DefaultTableModel miTabla;
     private String respuesta = "";
     
-     public void setDatos2(Datos2 misDatos2){
-        this.misDatos2 = misDatos2;
+     public void setDatos(Datos misDatos){
+        this.misDatos = misDatos;
     }
     
     
@@ -57,7 +57,7 @@ public class frmBusquedaCliente extends javax.swing.JDialog {
             }
         } 
         
-        ResultSet rs = misDatos2.getConsulta(sql);
+        ResultSet rs = misDatos.getConsulta(sql);
         try {   
              while (rs.next()) {
                  registro[0] = rs.getString("idCliente");

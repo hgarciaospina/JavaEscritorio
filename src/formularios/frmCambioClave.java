@@ -1,7 +1,6 @@
 package formularios;
 
 import clases.Datos;
-import clases.Datos2;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,7 +12,6 @@ public class frmCambioClave extends javax.swing.JDialog {
     private String clave;
     private String usuario;
     private Datos misDatos;
-    private Datos2 misDatos2;
     
     
     public void setClave(String clave) {
@@ -26,10 +24,6 @@ public class frmCambioClave extends javax.swing.JDialog {
     
     public void setDatos(Datos misDatos) {
         this.misDatos = misDatos;
-    }
-    
-    public void setDatos2(Datos2 misDatos2) {
-        this.misDatos2 = misDatos2;
     }
     
     public frmCambioClave(java.awt.Frame parent, boolean modal) {
@@ -177,7 +171,7 @@ public class frmCambioClave extends javax.swing.JDialog {
         }
         
         //Cambiamos la clave del usuario
-        misDatos2.cambiarClave(usuario, claveNueva);
+        misDatos.cambiarClave(usuario, claveNueva);
         JOptionPane.showMessageDialog(rootPane, 
                     "El Cambio de clave del usuario " + usuario + " ha sido exitosa");
         this.dispose();

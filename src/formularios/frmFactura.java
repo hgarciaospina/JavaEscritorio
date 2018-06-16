@@ -5,7 +5,7 @@
  */
 package formularios;
 
-import clases.Datos2;
+import clases.Datos;
 import clases.Opcion;
 import clases.Producto;
 import clases.Utilidades;
@@ -25,11 +25,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmFactura extends javax.swing.JInternalFrame {
 
-    private Datos2 misDatos2;
+    private Datos misDatos;
     private DefaultTableModel miTabla;
     
-    public void setDatos2(Datos2 misDatos2){
-        this.misDatos2 = misDatos2;
+    public void setDatos(Datos misDatos){
+        this.misDatos = misDatos;
     }
     
     public frmFactura() {
@@ -263,7 +263,7 @@ public class frmFactura extends javax.swing.JInternalFrame {
             //Cargamos clientes en el combobox desde la base de datos
             Opcion opc = new Opcion("NA", "Seleccione un cliente...");
             cmbCliente.addItem(opc);
-            ResultSet rsCli = misDatos2.getClientes();
+            ResultSet rsCli = misDatos.getClientes();
             while(rsCli.next()){
                 opc = new Opcion(
                         rsCli.getString("idCliente"),
@@ -275,7 +275,7 @@ public class frmFactura extends javax.swing.JInternalFrame {
             //Cargamos productos en el combobox desde la base de datos
             opc = new Opcion("NA", "Seleccione un producto...");
             cmbProducto.addItem(opc);
-            ResultSet rsPro = misDatos2.getProductos();
+            ResultSet rsPro = misDatos.getProductos();
             while(rsPro.next()){
                 opc = new Opcion(
                         rsPro.getString("idProducto"),
@@ -327,7 +327,7 @@ public class frmFactura extends javax.swing.JInternalFrame {
         
         //Buscamos los datos del producto seleccionado
         Producto miProducto = 
-                misDatos2.getProducto(((Opcion)cmbProducto.getSelectedItem()).getValor());
+                misDatos.getProducto(((Opcion)cmbProducto.getSelectedItem()).getValor());
         
         //Adicionamos el producto a la tabla
         String registro[] = new String[5];
@@ -375,10 +375,10 @@ public class frmFactura extends javax.swing.JInternalFrame {
         }
         
         //Adicionamos un consecutivo a la factura
-        int numFac = misDatos2.getNumFac();
+        int numFac = misDatos.getNumFac();
         
         //Encabezado de factura
-        misDatos2.agregarFactura(
+        misDatos.agregarFactura(
             numFac,
             ((Opcion) cmbCliente.getSelectedItem()).getValor(),
             new Date());
@@ -387,7 +387,7 @@ public class frmFactura extends javax.swing.JInternalFrame {
         int num = 0;
         num = tblDetalle.getRowCount();
         for (int i = 0; i < num; i++) {
-            misDatos2.agregarDetalleFactura(
+            misDatos.agregarDetalleFactura(
                     numFac, 
                     i+1,
                     Utilidades.objectToString(tblDetalle.getValueAt(i, 0)),
@@ -442,7 +442,7 @@ public class frmFactura extends javax.swing.JInternalFrame {
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
         frmBusquedaCliente miBusqueda = new frmBusquedaCliente(null, closable);
-        miBusqueda.setDatos2(misDatos2);
+        miBusqueda.setDatos(misDatos);
         miBusqueda.setLocationRelativeTo(null);
         miBusqueda.setVisible(true);
         //Devuelve el dato id del cliente seleccionado en la búsqueda
@@ -460,7 +460,7 @@ public class frmFactura extends javax.swing.JInternalFrame {
 
     private void btnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProductoActionPerformed
         frmBusquedaProducto miBusqueda = new frmBusquedaProducto(null, closable);
-        miBusqueda.setDatos2(misDatos2);
+        miBusqueda.setDatos(misDatos);
         miBusqueda.setLocationRelativeTo(null);
         miBusqueda.setVisible(true);
         //Devuelve el dato id del cliente seleccionado en la búsqueda

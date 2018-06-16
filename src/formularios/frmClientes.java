@@ -1,7 +1,7 @@
 package formularios;
 
 import clases.Cliente;
-import clases.Datos2;
+import clases.Datos;
 import clases.Utilidades;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,13 +17,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmClientes extends javax.swing.JInternalFrame {
 
-    private Datos2 misDatos2;
+    private Datos misDatos;
     private int cliAct = 0;
     private boolean nuevo = false;
     private DefaultTableModel miTabla;
 
-    public void setDatos2(Datos2 misDatos2) {
-        this.misDatos2 = misDatos2;
+    public void setDatos(Datos misDatos) {
+        this.misDatos = misDatos;
     }
 
     public frmClientes() {
@@ -459,14 +459,14 @@ public class frmClientes extends javax.swing.JInternalFrame {
 
         // Si es nuevo validamos que el cliente no exista
         if (nuevo) {
-            if (misDatos2.existeCliente(txtIDCliente.getText())) {
+            if (misDatos.existeCliente(txtIDCliente.getText())) {
                 JOptionPane.showMessageDialog(rootPane,
                         "El cliente ya existe");
                 txtIDCliente.requestFocusInWindow();
                 return;
             }
         } else {
-            if (!misDatos2.existeCliente(txtIDCliente.getText())) {
+            if (!misDatos.existeCliente(txtIDCliente.getText())) {
                 JOptionPane.showMessageDialog(rootPane,
                         "El cliente no existe");
                 txtIDCliente.requestFocusInWindow();
@@ -489,9 +489,9 @@ public class frmClientes extends javax.swing.JInternalFrame {
 
         String msg;
         if (nuevo) {
-            msg = misDatos2.agregarCliente(miCliente);
+            msg = misDatos.agregarCliente(miCliente);
         } else {
-            msg = misDatos2.modificarCliente(miCliente);
+            msg = misDatos.modificarCliente(miCliente);
         }
 
         JOptionPane.showMessageDialog(rootPane, msg);
@@ -590,13 +590,13 @@ public class frmClientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPrimeroActionPerformed
 
     private void btnUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoActionPerformed
-        cliAct = misDatos2.numeroClientes() - 1;
+        cliAct = misDatos.numeroClientes() - 1;
         mostrarRegistro();
     }//GEN-LAST:event_btnUltimoActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         cliAct++;
-        if (cliAct == misDatos2.numeroClientes()) {
+        if (cliAct == misDatos.numeroClientes()) {
             cliAct = 0;
         }
         mostrarRegistro();
@@ -605,7 +605,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
         cliAct--;
         if (cliAct == -1) {
-            cliAct = misDatos2.numeroClientes() - 1;
+            cliAct = misDatos.numeroClientes() - 1;
         }
         mostrarRegistro();
     }//GEN-LAST:event_btnAnteriorActionPerformed
@@ -616,7 +616,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
             return;
         }
         String msg;
-        msg = misDatos2.borrarCliente((txtIDCliente.getText()));
+        msg = misDatos.borrarCliente((txtIDCliente.getText()));
         JOptionPane.showMessageDialog(rootPane, msg);
         cliAct = 0;
         //Actualiza cambios en la tabla
@@ -629,7 +629,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
         if (cliente.equals("")) {
             return;
         }
-        if (!misDatos2.existeCliente(cliente)) {
+        if (!misDatos.existeCliente(cliente)) {
             JOptionPane.showMessageDialog(rootPane, "Cliente no existe");
             return;
         }
@@ -665,7 +665,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
             //Datos de la tabla
             String registro[] = new String[9];
             miTabla = new DefaultTableModel(null, titulos);
-            ResultSet rs = misDatos2.getClientes();
+            ResultSet rs = misDatos.getClientes();
             while (rs.next()) {
                 registro[0] = rs.getString("idCliente");
                 registro[1] = tipoID(rs.getInt("idTipo"));
