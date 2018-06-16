@@ -1,9 +1,12 @@
 
 package formularios;
 
-import clases.Datos;
 import clases.Datos2;
 import clases.Utilidades;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -11,16 +14,11 @@ import javax.swing.table.DefaultTableModel;
  * @author HENRY
  */
 public class frmBusquedaProducto extends javax.swing.JDialog {
-
-    private Datos misDatos;
-     private Datos2 misDatos2;
+    
+    private Datos2 misDatos2;
     private DefaultTableModel miTabla;
     private String respuesta = "";
-    
-    public void setDatos(Datos misDatos){
-        this.misDatos = misDatos;
-    }
-    
+
     public void setDatos2(Datos2 misDatos2){
         this.misDatos2 = misDatos2;
     }
@@ -35,38 +33,36 @@ public class frmBusquedaProducto extends javax.swing.JDialog {
        String registro[] = new String[2];
        miTabla = new DefaultTableModel(null, titulos);
        
+        String sql = null;
         if (txtCriterio.getText().equals("")) {
-            for (int i = 0; i < misDatos.numeroProductos(); i++) {
-                registro[0] = misDatos.getProductos()[i].getIdProducto();
-                registro[1] = misDatos.getProductos()[i].getDescripcion();
-                miTabla.addRow(registro);  
+            sql = "select cast(idproducto as unsigned) as 'idProducto', descripcion  from productos "
+                    + "order by idProducto";
+        } else {
+            if(rbtID.isSelected()){
+                sql = "select cast(idproducto as unsigned) as 'idProducto', descripcion  from productos "
+                        + "where idProducto like '" + txtCriterio.getText()
+                        + "%'"
+                        + " order by idProducto";    
             }
-            tblTabla.setModel(miTabla);
-            return;  
-        }
-        
-        if(rbtDescripcion.isSelected()){
-            for (int i = 0; i < misDatos.numeroProductos(); i++) {  
-                if (misDatos.getProductos()[i].getDescripcion().startsWith(txtCriterio.getText())) {
-                   registro[0] = misDatos.getProductos()[i].getIdProducto();
-                   registro[1] = misDatos.getProductos()[i].getDescripcion();
-                   miTabla.addRow(registro);  
-                }
+            if(rbtDescripcion.isSelected()) {
+                sql = "select idProducto, descripcion from productos "
+                        + "where descripcion like '" + txtCriterio.getText()
+                        + "%'"
+                        + " order by descripcion"; 
             }
-            tblTabla.setModel(miTabla);
-            return;
         } 
         
-        if(rbtID.isSelected()){
-            for (int i = 0; i < misDatos.numeroProductos(); i++) {  
-                if (misDatos.getProductos()[i].getIdProducto().startsWith(txtCriterio.getText())) {
-                   registro[0] = misDatos.getProductos()[i].getIdProducto();
-                   registro[1] = misDatos.getProductos()[i].getDescripcion();
-                   miTabla.addRow(registro);  
-                }
-            }
-            tblTabla.setModel(miTabla);
-        }   
+        ResultSet rs = misDatos2.getConsulta(sql);
+        try {   
+             while (rs.next()) {
+                 registro[0] = rs.getString("idProducto");
+                 registro[1] = rs.getString("descripcion");
+                 miTabla.addRow(registro);
+             }
+             tblTabla.setModel(miTabla);  
+        } catch (SQLException ex) {
+             Logger.getLogger(frmBusquedaCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }  
     }
     
     public frmBusquedaProducto(java.awt.Frame parent, boolean modal) {
