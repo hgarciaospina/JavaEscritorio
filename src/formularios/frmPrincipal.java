@@ -209,7 +209,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuArchivoUsuariosActionPerformed
 
     private void mnuArchivosalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivosalirActionPerformed
-        misDatos.grabarTodo();
+       // misDatos.grabarTodo();
         System.exit(0);
     }//GEN-LAST:event_mnuArchivosalirActionPerformed
 
@@ -265,7 +265,6 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void mnuMovimientosNuevaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMovimientosNuevaFacturaActionPerformed
         frmFactura miFactura = new frmFactura(); 
-        miFactura.setDatos(misDatos);
         miFactura.setDatos2(misDatos2);
         dpnEscritorio.add(miFactura);
         miFactura.show();

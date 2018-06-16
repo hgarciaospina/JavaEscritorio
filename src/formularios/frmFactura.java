@@ -5,7 +5,6 @@
  */
 package formularios;
 
-import clases.Datos;
 import clases.Datos2;
 import clases.Opcion;
 import clases.Producto;
@@ -26,13 +25,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmFactura extends javax.swing.JInternalFrame {
 
-    private Datos misDatos;
     private Datos2 misDatos2;
     private DefaultTableModel miTabla;
-    
-    public void setDatos(Datos misDatos){
-        this.misDatos = misDatos;
-    }
     
     public void setDatos2(Datos2 misDatos2){
         this.misDatos2 = misDatos2;
@@ -448,7 +442,7 @@ public class frmFactura extends javax.swing.JInternalFrame {
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
         frmBusquedaCliente miBusqueda = new frmBusquedaCliente(null, closable);
-        miBusqueda.setDatos(misDatos);
+        miBusqueda.setDatos2(misDatos2);
         miBusqueda.setLocationRelativeTo(null);
         miBusqueda.setVisible(true);
         //Devuelve el dato id del cliente seleccionado en la búsqueda
@@ -466,7 +460,7 @@ public class frmFactura extends javax.swing.JInternalFrame {
 
     private void btnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProductoActionPerformed
         frmBusquedaProducto miBusqueda = new frmBusquedaProducto(null, closable);
-        miBusqueda.setDatos(misDatos);
+        miBusqueda.setDatos2(misDatos2);
         miBusqueda.setLocationRelativeTo(null);
         miBusqueda.setVisible(true);
         //Devuelve el dato id del cliente seleccionado en la búsqueda

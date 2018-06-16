@@ -277,7 +277,17 @@ public class Datos2 {
     
      public ResultSet getClientes() {
         try {
-            String sql = "Select * from clientes order by apellidos";
+            String sql = "select * from clientes order by apellidos";
+            Statement st = cnn.createStatement();
+            return st.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos2.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public ResultSet getConsulta(String sql) {
+        try {
             Statement st = cnn.createStatement();
             return st.executeQuery(sql);
         } catch (SQLException ex) {

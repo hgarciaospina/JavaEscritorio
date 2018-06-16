@@ -2,7 +2,12 @@
 package formularios;
 
 import clases.Datos;
+import clases.Datos2;
 import clases.Utilidades;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -12,77 +17,72 @@ import javax.swing.table.DefaultTableModel;
 public class frmBusquedaCliente extends javax.swing.JDialog {
 
     private Datos misDatos;
+    private Datos2 misDatos2;
     private DefaultTableModel miTabla;
     private String respuesta = "";
     
     public void setDatos(Datos misDatos){
         this.misDatos = misDatos;
     }
+    
+     public void setDatos2(Datos2 misDatos2){
+        this.misDatos2 = misDatos2;
+    }
+    
+    
     //Devuelve el dato de búsqueda seleccionado
     public String getRespuesta() {
         return respuesta;
     }
     
     private void llenarTabla() {
-       String titulos[] = { "ID Cliente","Nombres", "Apellidos"};
-       String registro[] = new String[3];
-       miTabla = new DefaultTableModel(null, titulos);
-       
+        String titulos[] = { "ID Cliente","Nombres", "Apellidos"};
+        String registro[] = new String[3];
+        miTabla = new DefaultTableModel(null, titulos);
+        String sql = null;
         if (txtCriterio.getText().equals("")) {
-            for (int i = 0; i < misDatos.numeroClientes(); i++) {
-                registro[0] = misDatos.getClientes()[i].getIdCliente();
-                registro[1] = misDatos.getClientes()[i].getNombres();
-                registro[2] = misDatos.getClientes()[i].getApellidos();
-                miTabla.addRow(registro);  
+            sql = "select idCliente, nombres, apellidos from clientes order by idCliente";
+        } else {
+            if(rbtNombres.isSelected()){
+                sql = "select idCliente, nombres, apellidos from clientes "
+                        + "where nombres like '" + txtCriterio.getText()
+                        + "%'"
+                        + " order by nombres, apellidos";    
             }
-            tblTabla.setModel(miTabla);
-            return;  
+            if(rbtApellidos.isSelected()) {
+                sql = "select idCliente, nombres, apellidos from clientes "
+                        + "where apellidos like '" + txtCriterio.getText()
+                        + "%'"
+                        + " order by apellidos, nombres"; 
+            }
+            if(rbtID.isSelected()){
+                sql = "select idCliente, nombres, apellidos from clientes "
+                        + "where idCliente like '" + txtCriterio.getText()
+                        + "%'"
+                        + " order by idCliente"; 
+            }
+        } 
+        
+        ResultSet rs = misDatos2.getConsulta(sql);
+        try {   
+             while (rs.next()) {
+                 registro[0] = rs.getString("idCliente");
+                 registro[1] = rs.getString("nombres");
+                 registro[2] = rs.getString("apellidos");
+                 miTabla.addRow(registro);
+             }
+             tblTabla.setModel(miTabla);  
+             return;
+        } catch (SQLException ex) {
+             Logger.getLogger(frmBusquedaCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if(rbtNombres.isSelected()){
-            for (int i = 0; i < misDatos.numeroClientes(); i++) {  
-                if (misDatos.getClientes()[i].getNombres().startsWith(txtCriterio.getText())) {
-                   registro[0] = misDatos.getClientes()[i].getIdCliente();
-                   registro[1] = misDatos.getClientes()[i].getNombres();
-                   registro[2] = misDatos.getClientes()[i].getApellidos();
-                   miTabla.addRow(registro);  
-                }
-            }
-            tblTabla.setModel(miTabla);
-            return;
-        } 
-        
-        if(rbtApellidos.isSelected()){
-            for (int i = 0; i < misDatos.numeroClientes(); i++) {  
-                if (misDatos.getClientes()[i].getApellidos().startsWith(txtCriterio.getText())) {
-                   registro[0] = misDatos.getClientes()[i].getIdCliente();
-                   registro[1] = misDatos.getClientes()[i].getNombres();
-                   registro[2] = misDatos.getClientes()[i].getApellidos();
-                   miTabla.addRow(registro);  
-                }
-            }
-            tblTabla.setModel(miTabla);
-            return;
-        } 
-        
-        if(rbtID.isSelected()){
-            for (int i = 0; i < misDatos.numeroClientes(); i++) {  
-                if (misDatos.getClientes()[i].getIdCliente().startsWith(txtCriterio.getText())) {
-                   registro[0] = misDatos.getClientes()[i].getIdCliente();
-                   registro[1] = misDatos.getClientes()[i].getNombres();
-                   registro[2] = misDatos.getClientes()[i].getApellidos();
-                   miTabla.addRow(registro);  
-                }
-            }
-            tblTabla.setModel(miTabla);
-        }   
     }
     
     public frmBusquedaCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
-        //Se agrupan los botonrd para que sean excluyentes
+        //Se agrupan los botones mediante bgrTipoBusqueda para que sean excluyentes
         bgrTipoBusqueda.add(rbtID);
         bgrTipoBusqueda.add(rbtApellidos);
         bgrTipoBusqueda.add(rbtNombres);
