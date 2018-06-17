@@ -160,6 +160,11 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         mnuMovimientosReporteFacturas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reportefactura.png"))); // NOI18N
         mnuMovimientosReporteFacturas.setText("Reporte Facturas");
+        mnuMovimientosReporteFacturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuMovimientosReporteFacturasActionPerformed(evt);
+            }
+        });
         mnuMovimientos.add(mnuMovimientosReporteFacturas);
 
         mnuBar.add(mnuMovimientos);
@@ -267,6 +272,15 @@ public class frmPrincipal extends javax.swing.JFrame {
         dpnEscritorio.add(miFactura);
         miFactura.show();
     }//GEN-LAST:event_mnuMovimientosNuevaFacturaActionPerformed
+
+    private void mnuMovimientosReporteFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMovimientosReporteFacturasActionPerformed
+        frmReporteFacturas miReporte = new  frmReporteFacturas();
+        miReporte.setDatos(misDatos);
+        dpnEscritorio.add(miReporte);
+        miReporte.show();
+        
+        
+    }//GEN-LAST:event_mnuMovimientosReporteFacturasActionPerformed
 
     /**
      * @param args the command line arguments

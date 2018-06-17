@@ -72,6 +72,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setTitle("Clientes");
         setToolTipText("");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/images/customers.png"))); // NOI18N
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }

@@ -67,6 +67,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Productos");
         setToolTipText("");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/images/products.png"))); // NOI18N
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }

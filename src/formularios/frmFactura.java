@@ -70,6 +70,7 @@ public class frmFactura extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setTitle("Nueva Factura");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bill.png"))); // NOI18N
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }

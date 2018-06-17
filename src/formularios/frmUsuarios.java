@@ -71,6 +71,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Usuarios");
         setToolTipText("");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/images/users.png"))); // NOI18N
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
