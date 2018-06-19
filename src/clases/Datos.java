@@ -285,6 +285,17 @@ public class Datos {
             return null;
         }
     }
+     
+    public ResultSet getFacturas() {
+        try {
+            String sql = "select * from factura order by idFactura";
+            Statement st = cnn.createStatement();
+            return st.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    } 
     
     public ResultSet getConsulta(String sql) {
         try {

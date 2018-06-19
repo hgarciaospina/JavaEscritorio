@@ -2,16 +2,9 @@ package formularios;
 
 import clases.Datos;
 import clases.Opcion;
-import clases.Utilidades;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import clases.Reporte;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -62,9 +55,7 @@ public class frmReporteFacturas extends javax.swing.JInternalFrame {
         cmbFacturaInicial = new javax.swing.JComboBox<>();
         cmbFacturaFinal = new javax.swing.JComboBox<>();
         lblClienteInicial = new javax.swing.JLabel();
-        lblClienteFinal = new javax.swing.JLabel();
-        cmbClienteInicial = new javax.swing.JComboBox<>();
-        cmbClienteFinal = new javax.swing.JComboBox<>();
+        cmbCliente = new javax.swing.JComboBox<>();
         btnGenerarReporte = new javax.swing.JButton();
 
         setClosable(true);
@@ -94,6 +85,11 @@ public class frmReporteFacturas extends javax.swing.JInternalFrame {
         txtArchivo.setText("Reporte");
 
         btnSeleccionArchivo.setText("...");
+        btnSeleccionArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionArchivoActionPerformed(evt);
+            }
+        });
 
         rbtFecha.setForeground(new java.awt.Color(255, 0, 0));
         rbtFecha.setSelected(true);
@@ -157,13 +153,9 @@ public class frmReporteFacturas extends javax.swing.JInternalFrame {
 
         cmbFacturaFinal.setEnabled(false);
 
-        lblClienteInicial.setText("Cliente Inicial:");
+        lblClienteInicial.setText("Cliente:");
 
-        lblClienteFinal.setText("Cliente final:");
-
-        cmbClienteInicial.setEnabled(false);
-
-        cmbClienteFinal.setEnabled(false);
+        cmbCliente.setEnabled(false);
 
         btnGenerarReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reports.png"))); // NOI18N
         btnGenerarReporte.setText("Generar Reporte");
@@ -178,49 +170,7 @@ public class frmReporteFacturas extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dchFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblClienteFinal, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblClienteInicial, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblFacturaFinal, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblFacturaInicial, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(cmbFacturaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbFacturaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbClienteInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(cmbClienteFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGenerarReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(rbtTodo)
-                        .addGap(18, 18, 18)
-                        .addComponent(rbtSeleccion))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(lblArchivo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSeleccionArchivo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dchFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -230,14 +180,42 @@ public class frmReporteFacturas extends javax.swing.JInternalFrame {
                                 .addGap(10, 10, 10)
                                 .addComponent(rbtFecha)))
                         .addGap(39, 39, 39)
-                        .addComponent(rbtCliente)))
-                .addGap(0, 43, Short.MAX_VALUE))
+                        .addComponent(rbtCliente))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rbtTodo)
+                                .addGap(18, 18, 18)
+                                .addComponent(rbtSeleccion))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblArchivo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSeleccionArchivo)))))
+                .addGap(0, 47, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblFacturaInicial)
+                    .addComponent(lblInicial)
+                    .addComponent(lblClienteInicial)
+                    .addComponent(lblFacturaFinal)
+                    .addComponent(lblFinal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(cmbFacturaFinal, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbFacturaInicial, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dchFechaInicial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                    .addComponent(cmbCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dchFechaFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGenerarReporte)
+                .addGap(53, 53, 53))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblClienteFinal, lblClienteInicial, lblFacturaFinal, lblFacturaInicial, lblFinal, lblInicial});
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbClienteFinal, cmbClienteInicial, cmbFacturaFinal, cmbFacturaInicial, dchFechaInicial});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -263,29 +241,21 @@ public class frmReporteFacturas extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblFinal)
                     .addComponent(dchFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblFacturaInicial)
                     .addComponent(cmbFacturaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblFacturaFinal)
-                            .addComponent(cmbFacturaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblClienteInicial)
-                            .addComponent(cmbClienteInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(9, 9, 9)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbClienteFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblClienteFinal))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGenerarReporte)
-                        .addGap(43, 43, 43))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbFacturaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFacturaFinal))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblClienteInicial))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGenerarReporte)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -304,8 +274,7 @@ public class frmReporteFacturas extends javax.swing.JInternalFrame {
             dchFechaInicial.setEnabled(false);
             dchFechaFinal.setEnabled(false);
             
-            cmbClienteInicial.setEnabled(false);
-            cmbClienteFinal.setEnabled(false);
+            cmbCliente.setEnabled(false);
             
             cmbFacturaInicial.setEnabled(false);
             cmbFacturaFinal.setEnabled(false);
@@ -320,8 +289,7 @@ public class frmReporteFacturas extends javax.swing.JInternalFrame {
             dchFechaInicial.setEnabled(true);
             dchFechaFinal.setEnabled(true);
             
-            cmbClienteInicial.setEnabled(false);
-            cmbClienteFinal.setEnabled(false);
+            cmbCliente.setEnabled(false);
             
             cmbFacturaInicial.setEnabled(false);
             cmbFacturaFinal.setEnabled(false);
@@ -331,8 +299,7 @@ public class frmReporteFacturas extends javax.swing.JInternalFrame {
             dchFechaInicial.setEnabled(false);
             dchFechaFinal.setEnabled(false);
             
-            cmbClienteInicial.setEnabled(false);
-            cmbClienteFinal.setEnabled(false);
+            cmbCliente.setEnabled(false);
             
             cmbFacturaInicial.setEnabled(true);
             cmbFacturaFinal.setEnabled(true);
@@ -342,8 +309,7 @@ public class frmReporteFacturas extends javax.swing.JInternalFrame {
             dchFechaInicial.setEnabled(false);
             dchFechaFinal.setEnabled(false);
             
-            cmbClienteInicial.setEnabled(true);
-            cmbClienteFinal.setEnabled(true);
+            cmbCliente.setEnabled(true);
             
             cmbFacturaInicial.setEnabled(false);
             cmbFacturaFinal.setEnabled(false);
@@ -373,14 +339,16 @@ public class frmReporteFacturas extends javax.swing.JInternalFrame {
         }
         try {
              String archivo;
-             Document documento;
-             archivo =  txtArchivo.getText() + ".pdf";
-             documento = new Document();
-             PdfWriter.getInstance(documento, new FileOutputStream(archivo));
-             Paragraph parrafo = new Paragraph("Reporte generado");
-             documento.open();
-             documento.add(parrafo);
-             documento.close();
+             String sql;
+             archivo = txtArchivo.getText() + ".pdf";
+             sql = "select factura.idFactura, factura.idCliente, "
+                   + "CONCAT(nombres,' ', apellidos) as nombreFull, " 
+                   + "fecha, idLinea, idProducto, descripcion, precio, "
+                   + "cantidad, precio * cantidad as valor "
+                   + "from factura "
+                   + "inner join clientes on factura.idCliente = clientes.idCliente "
+                   + "inner join detalleFactura on factura.idFactura = detalleFactura.idFactura";
+             Reporte.reporteFacturas(archivo, misDatos.getConsulta(sql));
              JOptionPane.showMessageDialog(null, "Reporte generado exitosamente...");
         } catch (Exception ex) {
             Logger.getLogger(frmReporteFacturas.class.getName()).log(Level.SEVERE, null, ex);
@@ -394,21 +362,47 @@ public class frmReporteFacturas extends javax.swing.JInternalFrame {
             /*En los combos clientes se debe entrar a propiedades, seleccionar
               code y cambiar <String> por <Object>
             */
-            cmbClienteInicial.addItem(opc);
-            cmbClienteFinal.addItem(opc);
+            cmbCliente.addItem(opc);
             ResultSet rsCli = misDatos.getClientes();
             while(rsCli.next()){
                 opc = new Opcion(
                         rsCli.getString("idCliente"),
                         rsCli.getString("nombres") + " "
                         + rsCli.getString("apellidos"));
-                cmbClienteInicial.addItem(opc);
-                cmbClienteFinal.addItem(opc);
+                cmbCliente.addItem(opc);
+            }
+            
+            //Cargmos las facturas en los combox desde la base de datos
+            opc = new Opcion("NA", "Seleccione una factura...");
+            /*En los combos facturas se debe entrar a propiedades, seleccionar
+              code y cambiar <String> por <Object>
+            */
+            cmbFacturaInicial.addItem(opc);
+            cmbFacturaFinal.addItem(opc);
+            ResultSet rsFac = misDatos.getFacturas();
+            while(rsFac.next()){
+                opc = new Opcion(
+                        rsFac.getString("idFactura"),
+                        rsFac.getString("idFactura"));
+                cmbFacturaInicial.addItem(opc);
+                cmbFacturaFinal.addItem(opc);
             }
         } catch (SQLException ex) {
             Logger.getLogger(frmFactura.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formInternalFrameOpened
+
+    private void btnSeleccionArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionArchivoActionPerformed
+        frmSelectorArchivo miArchivo = new  frmSelectorArchivo(null, closable);
+        //Centra el formulario en la pantalla
+        miArchivo.setLocationRelativeTo(null);
+        miArchivo.setVisible(true);
+        String archivo = miArchivo.getArchivo();
+        if (!archivo.equals("")) {
+            txtArchivo.setText(archivo);
+        }
+        
+    }//GEN-LAST:event_btnSeleccionArchivoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -416,14 +410,12 @@ public class frmReporteFacturas extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup bgrTipo;
     private javax.swing.JButton btnGenerarReporte;
     private javax.swing.JButton btnSeleccionArchivo;
-    private javax.swing.JComboBox<Object> cmbClienteFinal;
-    private javax.swing.JComboBox<Object> cmbClienteInicial;
-    private javax.swing.JComboBox<String> cmbFacturaFinal;
-    private javax.swing.JComboBox<String> cmbFacturaInicial;
+    private javax.swing.JComboBox<Object> cmbCliente;
+    private javax.swing.JComboBox<Object> cmbFacturaFinal;
+    private javax.swing.JComboBox<Object> cmbFacturaInicial;
     private com.toedter.calendar.JDateChooser dchFechaFinal;
     private com.toedter.calendar.JDateChooser dchFechaInicial;
     private javax.swing.JLabel lblArchivo;
-    private javax.swing.JLabel lblClienteFinal;
     private javax.swing.JLabel lblClienteInicial;
     private javax.swing.JLabel lblFacturaFinal;
     private javax.swing.JLabel lblFacturaInicial;

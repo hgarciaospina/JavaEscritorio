@@ -36,60 +36,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblInicial" linkSize="1" min="-2" pref="69" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="dchFechaInicial" linkSize="2" min="-2" pref="186" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-          </Group>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblClienteFinal" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblClienteInicial" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblFacturaFinal" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblFacturaInicial" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="cmbFacturaFinal" linkSize="2" alignment="1" min="-2" pref="155" max="-2" attributes="0"/>
-                                  <Component id="cmbFacturaInicial" linkSize="2" min="-2" pref="155" max="-2" attributes="0"/>
-                                  <Component id="cmbClienteInicial" linkSize="2" alignment="1" min="-2" pref="155" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                              <Component id="cmbClienteFinal" linkSize="2" min="-2" pref="155" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnGenerarReporte" min="-2" pref="157" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                      <Component id="rbtTodo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="rbtSeleccion" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                      <Component id="lblArchivo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtArchivo" min="-2" pref="158" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnSeleccionArchivo" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblFinal" linkSize="1" min="-2" pref="89" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="dchFechaFinal" min="-2" pref="186" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
@@ -104,8 +52,49 @@
                       <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                       <Component id="rbtCliente" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="rbtTodo" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="rbtSeleccion" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="lblArchivo" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="txtArchivo" min="-2" pref="158" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnSeleccionArchivo" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
               </Group>
-              <EmptySpace min="0" pref="43" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="47" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="lblFacturaInicial" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblInicial" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblClienteInicial" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblFacturaFinal" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblFinal" alignment="1" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="cmbFacturaFinal" alignment="0" max="32767" attributes="0"/>
+                  <Component id="cmbFacturaInicial" alignment="0" max="32767" attributes="0"/>
+                  <Component id="dchFechaInicial" alignment="0" pref="242" max="32767" attributes="0"/>
+                  <Component id="cmbCliente" max="32767" attributes="0"/>
+                  <Component id="dchFechaFinal" alignment="1" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="btnGenerarReporte" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -139,36 +128,24 @@
                   <Component id="lblFinal" min="-2" max="-2" attributes="0"/>
                   <Component id="dchFechaFinal" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblFacturaInicial" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cmbFacturaInicial" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblFacturaFinal" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cmbFacturaFinal" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblClienteInicial" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cmbClienteInicial" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="cmbClienteFinal" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblClienteFinal" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnGenerarReporte" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="lblFacturaInicial" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbFacturaInicial" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cmbFacturaFinal" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblFacturaFinal" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cmbCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblClienteInicial" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnGenerarReporte" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -188,6 +165,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="..."/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSeleccionArchivoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbtFecha">
       <Properties>
@@ -288,7 +268,7 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JComboBox" name="cmbFacturaFinal">
@@ -299,31 +279,15 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="lblClienteInicial">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cliente Inicial:"/>
+        <Property name="text" type="java.lang.String" value="Cliente:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblClienteFinal">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Cliente final:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="cmbClienteInicial">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
-        </Property>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="cmbClienteFinal">
+    <Component class="javax.swing.JComboBox" name="cmbCliente">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
